@@ -1,7 +1,12 @@
-# .gitignore content
 # Java
 *.class
 target/
+*.jar
+*.war
+*.ear
+.m2/
+
+# IntelliJ
 .idea/
 *.iml
 
@@ -9,6 +14,11 @@ target/
 node_modules/
 dist/
 .env
+build/
 
 # Docker
 *.dockerignore
+docker-compose*.yml
+
+# Logs
+*.log
