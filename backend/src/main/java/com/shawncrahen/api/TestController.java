@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.apache.logging.log4j.util.LambdaUtil.getMessage;
-
 @RestController
 @RequestMapping("/test")
 @AllArgsConstructor
@@ -24,5 +22,15 @@ public class TestController {
         } catch (Exception e) {
             return String.format("Database connection failed: %s", e.getMessage());
         }
+    }
+
+    @GetMapping("/public")
+    public String testPublic() {
+        return "Public access successful!";
+    }
+
+    @GetMapping("/secured")
+    public String testSecured() {
+        return "Secured access successful!";
     }
 }
