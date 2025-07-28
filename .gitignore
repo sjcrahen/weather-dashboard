@@ -18,7 +18,6 @@ build/
 
 # Docker
 *.dockerignore
-docker-compose*.yml
 
 # Logs
 *.log
