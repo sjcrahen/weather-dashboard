@@ -1,8 +1,8 @@
 package com.shawncrahen.api;
 
+import com.shawncrahen.auth.JwtUtils;
 import com.shawncrahen.auth.LoginRequest;
-import com.shawncrahen.security.CustomUserDetailsService;
-import com.shawncrahen.security.JwtUtils;
+import com.shawncrahen.user.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

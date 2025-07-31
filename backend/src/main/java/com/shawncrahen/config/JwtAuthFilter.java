@@ -1,5 +1,7 @@
-package com.shawncrahen.security;
+package com.shawncrahen.config;
 
+import com.shawncrahen.auth.JwtUtils;
+import com.shawncrahen.user.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

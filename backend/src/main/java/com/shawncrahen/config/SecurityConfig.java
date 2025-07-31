@@ -1,5 +1,6 @@
-package com.shawncrahen.security;
+package com.shawncrahen.config;
 
+import com.shawncrahen.user.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
