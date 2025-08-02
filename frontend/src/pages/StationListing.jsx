@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useAuth } from "../context/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 function StationListing() {
+    const { logout } = useAuth();
+    const { navigate } = useNavigate();
     const [data, setData] = useState('');
 
     useEffect(() => {
@@ -19,7 +23,17 @@ function StationListing() {
         fetchData();
     }, []);
 
-    return <h1>Station Listing (Protected): {data}</h1>;
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    }
+
+    return (
+        <>
+            <h1>Station Listing (Protected): {data}</h1>
+            <button onClick={handleLogout}>Logout</button>
+        </>
+    );
 }
 
 export default StationListing;
