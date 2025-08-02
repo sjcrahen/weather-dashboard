@@ -5,32 +5,29 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const storedToken = localStorage.getItem('token');
-    let valid = storedToken && isValidToken(storedToken);
+    const hasValidToken = storedToken && isValidToken(storedToken);
 
     const [token, setToken] = useState(localStorage.getItem('token'));
-    const [isAuthenticated, setIsAuthenticated] = useState(valid);
+    const [isAuthenticated, setIsAuthenticated] = useState(hasValidToken);
 
     useEffect(() => {
-        const validateToken = () => {
-            if (!token) {
-                setIsAuthenticated(false);
-            } else if (isValidToken(token)) {
-                setIsAuthenticated(true);
-            } else {
-                logout();
-            }
+        if (!token) {
+            setIsAuthenticated(false);
+        } else if (isValidToken(token)) {
+            setIsAuthenticated(true);
+        } else {
+            logout();
         }
-        validateToken();
     }, [token]);
 
-    function isValidToken(token) {
+    const isValidToken = (token) => {
         try {
             const decoded = jwtDecode(token);
             return decoded.exp * 1000 > Date.now();
         } catch {
             return false;
         }
-    }
+    };
 
     const login = async (username, password) => {
         try {
@@ -39,6 +36,7 @@ export const AuthProvider = ({ children }) => {
                 headers: { 'Content-Type': 'application/json', },
                 body: JSON.stringify({ username, password }),
             });
+
             if (!response.ok) {
                 throw new Error(`Login failed: ${await response.text()}`);
             }
@@ -51,13 +49,13 @@ export const AuthProvider = ({ children }) => {
             console.error('Login failed:', error.message || error);
             return false;
         }
-    }
+    };
 
     const logout = () => {
         localStorage.removeItem('token');
         setToken(null);
         setIsAuthenticated(false);
-    }
+    };
 
 
     return (
