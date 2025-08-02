@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useAuth } from "../context/AuthContext.jsx";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from '../context/AuthContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 function StationListing() {
     const { logout } = useAuth();
@@ -9,24 +8,29 @@ function StationListing() {
     const [data, setData] = useState('');
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:8080/api/admin/stations', {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                setData(response.data);
-            } catch (error) {
-                console.error('Error fetching protected data:', error);
-            }
+        const controller = new AbortController();
+        const token = localStorage.getItem('token');
+
+        fetch('http://localhost:8080/api/admin/stations', {
+            signal: controller.signal,
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then(res => {
+                setData(res.data);
+            })
+            .catch(err => {
+                console.error('Error fetching protected data:', err);
+            });
+
+        return () => {
+            controller.abort();
         };
-        fetchData();
     }, []);
 
     const handleLogout = () => {
         logout();
         navigate('/login');
-    }
+    };
 
     return (
         <>

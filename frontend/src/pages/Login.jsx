@@ -1,22 +1,23 @@
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 function Login() {
-    const { login } = useAuth();
-    const navigate = useNavigate();
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const { login } = useAuth()
+    const navigate = useNavigate()
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleLogin = async (e) => {
-        e.preventDefault();
-        const success = await login(username, password);
+        e.preventDefault()
+        const success = await login(username, password)
         if (success) {
-            navigate('/stations');
+            navigate('/stations')
         } else {
-            alert('Login failed');
+            // TODO: handle failed login
+            alert('Login failed')
         }
-    };
+    }
 
     return (
         <form onSubmit={handleLogin}>
@@ -35,7 +36,7 @@ function Login() {
             />
             <button type="submit">Log In</button>
         </form>
-    );
+    )
 }
 
-export default Login;
+export default Login

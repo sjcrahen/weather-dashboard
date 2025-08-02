@@ -1,7 +1,23 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext(null);
+
+const isValidToken = token => {
+    try {
+        const decoded = jwtDecode(token);
+        return decoded.exp * 1000 > Date.now();
+    } catch {
+        return false;
+    }
+};
 
 export const AuthProvider = ({ children }) => {
     const storedToken = localStorage.getItem('token');
@@ -9,6 +25,12 @@ export const AuthProvider = ({ children }) => {
 
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [isAuthenticated, setIsAuthenticated] = useState(hasValidToken);
+
+    const logout = useCallback(() => {
+        localStorage.removeItem('token');
+        setToken(null);
+        setIsAuthenticated(false);
+    }, []);
 
     useEffect(() => {
         if (!token) {
@@ -18,24 +40,18 @@ export const AuthProvider = ({ children }) => {
         } else {
             logout();
         }
-    }, [token]);
+    }, [token, logout]);
 
-    const isValidToken = (token) => {
+    const login = useCallback(async (username, password) => {
         try {
-            const decoded = jwtDecode(token);
-            return decoded.exp * 1000 > Date.now();
-        } catch {
-            return false;
-        }
-    };
-
-    const login = async (username, password) => {
-        try {
-            const response = await fetch('http://localhost:8080/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', },
-                body: JSON.stringify({ username, password }),
-            });
+            const response = await fetch(
+                'http://localhost:8080/api/auth/login',
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password }),
+                },
+            );
 
             if (!response.ok) {
                 throw new Error(`Login failed: ${await response.text()}`);
@@ -49,20 +65,21 @@ export const AuthProvider = ({ children }) => {
             console.error('Login failed:', error.message || error);
             return false;
         }
-    };
+    }, []);
 
-    const logout = () => {
-        localStorage.removeItem('token');
-        setToken(null);
-        setIsAuthenticated(false);
-    };
-
+    const value = useMemo(
+        () => ({
+            token,
+            login,
+            logout,
+            isAuthenticated,
+        }),
+        [token, login, logout, isAuthenticated],
+    );
 
     return (
-        <AuthContext.Provider value={{ token, login, logout, isAuthenticated }}>
-            {children}
-        </AuthContext.Provider>
+        <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
     );
-}
+};
 
 export const useAuth = () => useContext(AuthContext);
