@@ -4,6 +4,7 @@ import Login from './routes/Login.jsx';
 import StationListing from './routes/StationListing.jsx';
 import Dashboard from './routes/Dashboard.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
+import EditStation from './components/EditStation.jsx';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route element={<ProtectedRoute />}>
                         <Route path="/admin/stations" element={<StationListing />} />
+                        <Route path="/admin/stations/:slug" element={<EditStation />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

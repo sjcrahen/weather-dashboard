@@ -3,12 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
-import Card from '../components/Card.jsx';
 
 function Login() {
     const { login } = useAuth();
     const navigate = useNavigate();
-    const [loginForm, setLoginForm] = useState({});
+    const [loginForm, setLoginForm] = useState({ username: '', password: '' });
 
     const handleLogin = async e => {
         e.preventDefault();
@@ -37,7 +36,7 @@ function Login() {
 
     return (
         <form onSubmit={handleLogin} className={'flex items-center justify-center h-screen'}>
-            <Card classes={'items-center gap-y-7'}>
+            <div className={'card flex-col items-center gap-y-7'}>
                 <FontAwesomeIcon icon={faCircleUser} className={'size-20 c-card-1'} />
                 <div className={'relative'}>
                     <input className={'pr-10'} type="text" value={loginForm.username} onChange={handleUsernameChange} placeholder="Username" />
@@ -48,7 +47,7 @@ function Login() {
                     <FontAwesomeIcon icon={faLock} className={'size-5 absolute top-3 right-3'} />
                 </div>
                 <button type="submit">Log In</button>
-            </Card>
+            </div>
         </form>
     );
 }

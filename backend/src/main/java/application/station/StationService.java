@@ -13,7 +13,7 @@ public class StationService {
     private StationRepository stationRepository;
 
     public List<StationEntity> getAllStations() {
-        return stationRepository.findAll();
+        return stationRepository.findAllByOrderByNameAsc();
     }
 
     public StationEntity getStationBySlug(String slug) {
