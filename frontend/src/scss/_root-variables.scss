@@ -1,0 +1,31 @@
+@use "themes" as *;
+
+:root {
+    --background: #{theme($light-theme, background)};
+    --card-1: #{theme($light-theme, card-1)};
+    --card-2: #{theme($light-theme, card-2)};
+    --text: #{theme($light-theme, text)};
+    --links: #{theme($light-theme, links)};
+    --button-shadow: #{theme($light-theme, button-shadow)};
+}
+
+// Dark mode override
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #{theme($dark-theme, background)};
+        --card-1: #{theme($dark-theme, card-1)};
+        --card-2: #{theme($dark-theme, card-2)};
+        --text: #{theme($dark-theme, text)};
+        --links: #{theme($dark-theme, links)};
+        --button-shadow: #{theme($dark-theme, button-shadow)};
+    }
+}
+
+.dark-theme {
+    --background: #{theme($dark-theme, background)};
+    --card-1: #{theme($dark-theme, card-1)};
+    --card-2: #{theme($dark-theme, card-2)};
+    --text: #{theme($dark-theme, text)};
+    --links: #{theme($dark-theme, links)};
+    --button-shadow: #{theme($dark-theme, button-shadow)};
+}

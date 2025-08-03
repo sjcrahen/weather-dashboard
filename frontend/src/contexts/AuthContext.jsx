@@ -1,11 +1,4 @@
-import {
-    createContext,
-    useCallback,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext(null);
@@ -42,16 +35,13 @@ export const AuthProvider = ({ children }) => {
         }
     }, [token, logout]);
 
-    const login = useCallback(async (username, password) => {
+    const login = useCallback(async loginForm => {
         try {
-            const response = await fetch(
-                'http://localhost:8080/api/auth/login',
-                {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password }),
-                },
-            );
+            const response = await fetch('http://localhost:8080/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: loginForm.username, password: loginForm.password }),
+            });
 
             if (!response.ok) {
                 throw new Error(`Login failed: ${await response.text()}`);
@@ -77,9 +67,7 @@ export const AuthProvider = ({ children }) => {
         [token, login, logout, isAuthenticated],
     );
 
-    return (
-        <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);

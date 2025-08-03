@@ -1,0 +1,29 @@
+@use "sass:map";
+@use "sass:color";
+
+// Light Mode Theme
+$light-theme: (
+        background: #f9fafb,
+        card-1: color.scale(#f9fafb, $lightness: -3%),
+        card-2: color.scale(#f9fafb, $lightness: -10%),
+        text: #1a2a3d,
+        links: #1e5bc6,
+        main-accent: #020c1b,
+        button-shadow: color.scale(#f9fafb, $lightness: -15%),
+);
+
+// Dark Mode Theme
+$dark-theme: (
+        background: #020c1b,
+        card-1: #1a2a3d,
+        card-2: #2e4058,
+        text: #d1d9e6,
+        links: #4a90e2,
+        main-accent: #020c1b,
+        button-shadow: color.scale(#1a2a3d, $lightness: -25%)
+);
+
+// Function to access theme values
+@function theme($theme, $key) {
+    @return map.get($theme, $key);
+}

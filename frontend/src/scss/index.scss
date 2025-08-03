@@ -1,9 +1,39 @@
+@use "reset";
+@use "root-variables";
+@use "sass-variables" as *;
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-$primary: #005495;
-
 body {
-  background-color: $primary;
+    background-color: var(--background);
+    color: var(--text);
+
+    .card {
+        background-color: var(--card-1);
+
+        > .card {
+            background-color: var(--card-2);
+        }
+
+        > svg {
+            color: var(--card-2);
+        }
+    }
+
+    input, button {
+        padding: $spacer-1;
+        background-color: var(--background);
+        border-radius: $radius;
+    }
+
+    button {
+        transition: box-shadow 0.3s ease;
+
+        &:hover {
+            box-shadow: 3px 3px 8px 2px var(--button-shadow);
+        }
+    }
+
 }
