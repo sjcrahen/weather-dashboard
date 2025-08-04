@@ -1,25 +1,22 @@
 import { useAuth } from '../contexts/AuthContext.jsx';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function Header({ label }) {
-    const { isAuthenticated, logout } = useAuth();
-    const navigate = useNavigate();
-    const isDarkTheme = localStorage.getItem('theme') != null;
+    const { isAuthenticated } = useAuth();
+    const [isDarkTheme, setIsDarkTheme] = useState(localStorage.getItem('theme') != null);
 
-    if (isDarkTheme) document.body.classList.add('dark-theme');
-
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
-    };
-
-    const toggleDarkTheme = () => {
-        document.body.classList.toggle('dark-theme');
-        if (document.body.classList.contains('dark-theme')) {
+    useEffect(() => {
+        if (isDarkTheme) {
             localStorage.setItem('theme', 'dark');
+            document.body.classList.add('dark-theme');
         } else {
             localStorage.removeItem('theme');
+            document.body.classList.remove('dark-theme');
         }
+    }, [isDarkTheme]);
+
+    const toggleDarkTheme = () => {
+        setIsDarkTheme(!isDarkTheme);
     };
 
     return (
@@ -37,11 +34,6 @@ function Header({ label }) {
                     <span className="z-10 w-10 h-6 flex items-center flex-shrink-0 p-1 rounded-full duration-300 ease-in-out after:w-4 after:h-4 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-4"></span>
                     Dark
                 </label>
-                {isAuthenticated && (
-                    <button className={'link p-0 hover:underline'} onClick={handleLogout}>
-                        Logout
-                    </button>
-                )}
             </div>
         </header>
     );

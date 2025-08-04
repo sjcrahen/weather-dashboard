@@ -16,12 +16,17 @@ body {
         padding: $spacer-3;
         display: flex;
 
-        .card {
-            background-color: var(--card-2);
-        }
-
         svg {
             color: var(--card-2);
+        }
+
+        .card {
+            background-color: var(--card-2);
+
+            svg {
+                color: var(--text);
+            }
+
         }
 
         &.table {
@@ -51,11 +56,19 @@ body {
             svg {
                 color: var(--background);
             }
+        }
 
+        &.transparent {
+            padding: 0;
+            background-color: transparent;
+
+            &:hover * {
+                color: var(--text);
+            }
         }
     }
 
-    button:not(.link) {
+    button:not(.link):not(.transparent) {
         transition: box-shadow 0.3s ease;
 
         &:hover {
@@ -86,7 +99,7 @@ body {
             color: var(--card-2);
             position: absolute;
             padding: 4px 8px;
-            bottom: -40%;
+            bottom: -60%;
             left: 40%;
             white-space: nowrap;
             box-shadow: 1px 1px 3px #222222;

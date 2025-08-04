@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import AdminLayout from '../components/AdminLayout.jsx';
 import MainContent from '../components/MainContent.jsx';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header.jsx';
+import Layout from '../components/Layout.jsx';
 
 function StationListing() {
     const navigate = useNavigate();
@@ -69,7 +70,8 @@ function StationListing() {
         : null;
 
     return (
-        <AdminLayout>
+        <Layout>
+            <Header label={'Stations'} />
             {loading && <p className={'loading'}>Loading...</p>}
             {error && <p className={'error'}>Error: {error}</p>}
             {!loading && !error && data.length && (
@@ -88,7 +90,7 @@ function StationListing() {
                 </MainContent>
             )}
             {!loading && !error && data.length === 0 && <p>No stations found.</p>}
-        </AdminLayout>
+        </Layout>
     );
 }
 
