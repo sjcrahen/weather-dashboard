@@ -11,14 +11,10 @@ function Dashboard() {
     return (
         <Layout>
             <Header label={'Dashboard'} />
-            {loading && <p className={'loading'}>Loading...</p>}
-            {error && <p className={'error'}>Error: {error}</p>}
-            {!loading && !error && data.length && (
-                <MainContent>
-                    <div>This is the dashboard!</div>
-                </MainContent>
-            )}
-            {!loading && !error && data.length === 0 && <p>No data found.</p>}
+            <MainContent loading={loading} error={error}>
+                {!loading && !error && data.length && <div>This is the dashboard!</div>}
+                {!loading && !error && data.length === 0 && <p>No data found.</p>}
+            </MainContent>
         </Layout>
     );
 }

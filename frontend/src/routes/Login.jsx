@@ -23,18 +23,8 @@ function Login() {
         }
     };
 
-    const handleUsernameChange = e => {
-        setLoginForm(prev => ({
-            ...prev,
-            username: e.target.value,
-        }));
-    };
-
-    const handlePasswordChange = e => {
-        setLoginForm(prev => ({
-            ...prev,
-            password: e.target.value,
-        }));
+    const handleFieldInput = e => {
+        setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
     };
 
     return (
@@ -45,11 +35,11 @@ function Login() {
                     <div className={'card flex-col items-center gap-y-7'}>
                         <FaCircleUser className={'size-20 c-card-1'} />
                         <div className={'relative'}>
-                            <input className={'pr-10'} type="text" value={loginForm.username} onChange={handleUsernameChange} placeholder="Username" />
+                            <input className={'pr-10'} type="text" name="username" value={loginForm.username} onInput={handleFieldInput} placeholder="Username" />
                             <FaUser className={'size-5 absolute top-3 right-3'} />
                         </div>
                         <div className={'relative'}>
-                            <input className={'pr-10'} type="password" value={loginForm.password} onChange={handlePasswordChange} placeholder="Password" />
+                            <input className={'pr-10'} type="password" name="password" value={loginForm.password} onInput={handleFieldInput} placeholder="Password" />
                             <FaLock className={'size-5 absolute top-3 right-3'} />
                         </div>
                         <button type="submit">Log In</button>
