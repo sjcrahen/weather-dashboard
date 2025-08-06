@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from 'react';
 function EditStation() {
     const navigate = useNavigate();
     const { slug } = useParams();
+    const { data, loading, error, doFetch } = useFetch();
     const [form, setForm] = useState({
         name: '',
         slug: '',
@@ -15,11 +16,14 @@ function EditStation() {
         state: '',
         latitude: '',
         longitude: '',
+        timezone: '',
     });
     const token = localStorage.getItem('token');
-
     const options = useMemo(() => ({ headers: { Authorization: `Bearer ${token}` } }), [token]);
-    const { data, loading, error } = useFetch(`http://localhost:8080/api/admin/stations/${slug}`, options);
+
+    useEffect(() => {
+        doFetch(`http://localhost:8080/api/admin/stations/${slug}`, options);
+    }, [slug, doFetch, options]);
 
     useEffect(() => {
         if (data)
@@ -30,6 +34,7 @@ function EditStation() {
                 state: data.state || '',
                 latitude: data.latitude || '',
                 longitude: data.longitude || '',
+                timezone: data.timezone || '',
             });
     }, [data]);
 
@@ -40,14 +45,18 @@ function EditStation() {
     const navigateToStationList = () => navigate('/admin/stations');
 
     const submitForm = e => {
-        console.log('submit');
+        doFetch(`http://localhost:8080/api/admin/stations/${slug}`, {
+            ...options,
+            method: 'PUT',
+            body: new FormData(e.target),
+        });
     };
 
     return (
         <Layout>
             <Header label={'Edit Station'} />
-            {data && (
-                <MainContent loading={loading} error={error}>
+            <MainContent loading={loading} error={error} data={data}>
+                {data && (
                     <form onSubmit={submitForm} className={'flex flex-row gap-x-4 h-full'}>
                         <div className={'card flex flex-col gap-y-4 flex-1'}>
                             <div className={'form-control flex flex-col'}>
@@ -80,6 +89,10 @@ function EditStation() {
                                     <input id="longitude-input" type="text" name="longitude" value={form.longitude} onInput={handleFieldInput} />
                                 </div>
                             </div>
+                            <div className={'form-control flex flex-col flex-1'}>
+                                <label htmlFor="timezone-input">Timezone</label>
+                                <input id="timezone-input" type="text" name="timezone" value={form.timezone} onInput={handleFieldInput} />
+                            </div>
                             <div className={'mt-auto flex flex-row justify-end gap-x-4'}>
                                 <button type="button" className={'font-medium'} onClick={navigateToStationList}>
                                     Cancel
@@ -91,8 +104,8 @@ function EditStation() {
                         </div>
                         <div className={'card w-1/2 flex flex-col gap-y-4 flex1'}></div>
                     </form>
-                </MainContent>
-            )}
+                )}
+            </MainContent>
         </Layout>
     );
 }

@@ -4,6 +4,7 @@
     --background: #{theme($light-theme, background)};
     --card-1: #{theme($light-theme, card-1)};
     --card-2: #{theme($light-theme, card-2)};
+    --card-3: #{theme($light-theme, card-3)};
     --text: #{theme($light-theme, text)};
     --links: #{theme($light-theme, links)};
     --button-shadow: #{theme($light-theme, button-shadow)};
@@ -15,6 +16,7 @@
         --background: #{theme($dark-theme, background)};
         --card-1: #{theme($dark-theme, card-1)};
         --card-2: #{theme($dark-theme, card-2)};
+        --card-3: #{theme($dark-theme, card-3)};
         --text: #{theme($dark-theme, text)};
         --links: #{theme($dark-theme, links)};
         --button-shadow: #{theme($dark-theme, button-shadow)};
@@ -25,6 +27,7 @@
     --background: #{theme($dark-theme, background)};
     --card-1: #{theme($dark-theme, card-1)};
     --card-2: #{theme($dark-theme, card-2)};
+    --card-3: #{theme($dark-theme, card-3)};
     --text: #{theme($dark-theme, text)};
     --links: #{theme($dark-theme, links)};
     --button-shadow: #{theme($dark-theme, button-shadow)};

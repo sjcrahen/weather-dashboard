@@ -54,8 +54,8 @@ public class StationsController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{slug:^[a-z0-9]+(?:-[a-z0-9]+)*$}")
-    public ResponseEntity<String> updateStation(@PathVariable String slug, @Valid @RequestBody StationForm stationForm, BindingResult result) {
+    @PutMapping(value = "/{slug:^[a-z0-9]+(?:-[a-z0-9]+)*$}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> updateStation(@PathVariable String slug, @Valid @ModelAttribute StationForm stationForm, BindingResult result) {
         if (!result.hasErrors()) {
             StationEntity existing = stationService.getStationBySlug(slug);
             if (existing == null) {

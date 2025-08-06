@@ -3,14 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header.jsx';
 import Layout from '../../components/Layout.jsx';
 import useFetch from '../../hooks/useFetch.jsx';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 function ListStations() {
     const navigate = useNavigate();
+    const { data, loading, error, doFetch } = useFetch();
     const token = localStorage.getItem('token');
 
     const options = useMemo(() => ({ headers: { Authorization: `Bearer ${token}` } }), [token]);
-    const { data, loading, error } = useFetch(`http://localhost:8080/api/admin/stations`, options);
+
+    useEffect(() => {
+        doFetch(`http://localhost:8080/api/admin/stations`, options);
+    }, [doFetch, options]);
 
     const editStation = e => {
         navigate(`/admin/stations/${e.currentTarget.dataset.slug}`);
@@ -38,7 +42,7 @@ function ListStations() {
     return (
         <Layout>
             <Header label={'Stations'} />
-            <MainContent loading={loading} error={error}>
+            <MainContent data={data} loading={loading} error={error}>
                 {!loading && !error && data?.length && (
                     <div className={'flex flex-col gap-y-1'}>
                         <div className={'card table head grid grid-cols-6 font-bold text-lg'}>
