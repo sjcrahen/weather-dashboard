@@ -5,7 +5,7 @@
 $light-theme: (
         background: #f9fafb,
         card-1: color.scale(#f9fafb, $lightness: -3%),
-        card-2: color.scale(#f9fafb, $lightness: -9%),
+        card-2: color.scale(#f9fafb, $lightness: -12%),
         card-3: color.scale(#f9fafb, $lightness: -17%),
         text: #1a2a3d,
         links: #1e5bc6,
@@ -17,7 +17,7 @@ $light-theme: (
 $dark-theme: (
         background: #020c1b,
         card-1: #1a2a3d,
-        card-2: color.scale(#1a2a3d, $lightness: 8%),
+        card-2: color.scale(#1a2a3d, $lightness: 12%),
         card-3: color.scale(#1a2a3d, $lightness: 19%),
         text: #d1d9e6,
         links: #4a90e2,

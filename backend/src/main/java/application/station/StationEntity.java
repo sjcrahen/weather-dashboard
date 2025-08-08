@@ -1,7 +1,11 @@
 package application.station;
 
+import application.datasource.DataSourceEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -18,10 +22,11 @@ public class StationEntity {
     @Column(unique = true)
     private String slug;
 
-//    @ManyToMany
-//    @JoinTable(name = "station_datasource", joinColumns = @JoinColumn(name = "station_id"), inverseJoinColumns = @JoinColumn(name = "datasource_id"))
-//    @OrderColumn(name = "datasource_display_order")
-//    private List<DataSourceEntity> dataSources;
+    @ManyToMany
+    @JoinTable(name = "station_datasource", joinColumns = @JoinColumn(name = "station_id"), inverseJoinColumns = @JoinColumn(name = "datasource_id"))
+    @OrderColumn(name = "order")
+    @JsonManagedReference
+    private List<DataSourceEntity> dataSources;
 
     private String city;
 

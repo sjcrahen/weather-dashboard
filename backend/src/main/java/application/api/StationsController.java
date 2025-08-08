@@ -25,8 +25,8 @@ public class StationsController {
         return ResponseEntity.ok(stationService.getAllStations());
     }
 
-    @GetMapping(value = "/{slug:[a-zA-Z0-9-]+}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<StationEntity> getStationById(@PathVariable String slug) {
+    @GetMapping(value = "/{slug:^[a-z0-9]+(?:-[a-z0-9]+)*$}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StationEntity> getStation(@PathVariable String slug) {
         StationEntity stationEntity = stationService.getStationBySlug(slug);
         if (stationEntity == null) {
             return ResponseEntity.notFound().build();
@@ -75,10 +75,5 @@ public class StationsController {
         }
         return ResponseEntity.ok().build();
     }
-
-//    @DeleteMapping("/{id:[0-9]+}")
-//    public ResponseEntity<String> deleteStation(@PathVariable int id) {
-//        return ResponseEntity.ok(String.format("Delete station with id: %d", id));
-//    }
 
 }
