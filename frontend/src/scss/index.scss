@@ -7,119 +7,131 @@
 @tailwind utilities;
 
 body {
-    background-color: var(--background);
-    color: var(--text);
+  background-color: var(--background);
+  color: var(--text);
+
+  .color-text {
+    color: var(--text) !important;
+  }
+
+  .card {
+    background-color: var(--card-1);
+    border-radius: $radius-2;
+    padding: $spacer-3;
+    display: flex;
+
+    svg {
+      color: var(--card-2);
+    }
 
     .card {
-        background-color: var(--card-1);
-        border-radius: $radius-2;
-        padding: $spacer-3;
-        display: flex;
+      background-color: var(--card-2);
+
+      svg {
+        color: var(--card-3);
+      }
+
+      .card {
+        background-color: var(--card-3);
 
         svg {
-            color: var(--card-2);
+          color: var(--text);
         }
+      }
 
-        .card {
-            background-color: var(--card-2);
-
-            svg {
-                color: var(--card-3);
-            }
-
-        }
-
-        &.table {
-            padding: $spacer-2;
-            border-radius: $radius-1;
-        }
-
-        &.grid {
-            display: grid;
-        }
     }
 
-    input, button:not(.link) {
-        padding: $spacer-2;
-        background-color: var(--background);
-        border-radius: $radius-2;
-
-        &.small {
-            padding: $spacer-1;
-            border-radius: $radius-1;
-        }
-
-        &.outline-btn {
-            background-color: transparent;
-            border: 2px solid var(--background);
-
-            svg {
-                color: var(--background);
-            }
-        }
-
-        &.transparent {
-            padding: 0;
-            background-color: transparent;
-
-            &:hover * {
-                color: var(--text);
-            }
-        }
+    &.table {
+      padding: $spacer-2;
+      border-radius: $radius-1;
     }
 
-    button:not(.link):not(.transparent) {
-        transition: box-shadow 0.3s ease;
+    &.grid {
+      display: grid;
+    }
+  }
 
-        &:hover {
-            box-shadow: 3px 3px 8px 2px var(--button-shadow);
-        }
+  input, button:not(.link) {
+    padding: $spacer-2;
+    background-color: var(--background);
+    border-radius: $radius-2;
+
+    &.small {
+      padding: $spacer-1;
+      border-radius: $radius-1;
     }
 
-    ::-webkit-scrollbar {
-        width: 8px;
+    &.outline-btn {
+      background-color: transparent;
+      border: 2px solid var(--background);
+
+      svg {
+        color: var(--background);
+      }
     }
 
-    ::-webkit-scrollbar-track {
-        border-radius: $radius-2;
-        background: var(--card-1);
+    &.transparent {
+      padding: 0;
+      background-color: transparent;
+
+      &:hover * {
+        color: var(--text);
+      }
+    }
+  }
+
+  button:not(.link):not(.transparent) {
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+      box-shadow: 3px 3px 8px 2px var(--button-shadow);
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: $radius-2;
+    background: var(--card-1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--card-2);
+    border-radius: $radius-2;
+  }
+
+  [data-title] {
+    position: relative;
+
+    &:after {
+      content: attr(data-title);
+      background-color: var(--text);
+      color: var(--card-2);
+      position: absolute;
+      padding: 4px 8px;
+      bottom: -60%;
+      left: 40%;
+      white-space: nowrap;
+      box-shadow: 1px 1px 3px #222222;
+      opacity: 0;
+      border: 1px solid var(--card-2);
+      border-radius: $radius-1;
+      z-index: 99999;
+      visibility: hidden;
     }
 
-    ::-webkit-scrollbar-thumb {
-        background: var(--card-2);
-        border-radius: $radius-2;
+    &:hover:after {
+      opacity: 1;
+      transition: all 0.1s ease 0.5s;
+      visibility: visible;
     }
+  }
 
-    [data-title] {
-        position: relative;
-
-        &:after {
-            content: attr(data-title);
-            background-color: var(--text);
-            color: var(--card-2);
-            position: absolute;
-            padding: 4px 8px;
-            bottom: -60%;
-            left: 40%;
-            white-space: nowrap;
-            box-shadow: 1px 1px 3px #222222;
-            opacity: 0;
-            border: 1px solid var(--card-2);
-            border-radius: $radius-1;
-            z-index: 99999;
-            visibility: hidden;
-        }
-
-        &:hover:after {
-            opacity: 1;
-            transition: all 0.1s ease 0.5s;
-            visibility: visible;
-        }
+  .theme-toggle {
+    span {
+      background-color: var(--card-2);
     }
-
-    .theme-toggle {
-        span {
-            background-color: var(--card-2);
-        }
-    }
+  }
 }

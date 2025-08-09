@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "stations")
+@Table(name = "station")
 public class StationEntity {
 
     @Id
@@ -24,7 +24,7 @@ public class StationEntity {
 
     @ManyToMany
     @JoinTable(name = "station_datasource", joinColumns = @JoinColumn(name = "station_id"), inverseJoinColumns = @JoinColumn(name = "datasource_id"))
-    @OrderColumn(name = "order")
+    @OrderColumn(name = "display_order")
     @JsonManagedReference
     private List<DataSourceEntity> dataSources;
 

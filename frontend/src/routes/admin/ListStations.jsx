@@ -44,7 +44,7 @@ function ListStations() {
             <Header label={'Stations'} />
             <MainContent data={data} loading={loading} error={error}>
                 {!loading && !error && data?.length && (
-                    <div className={'flex flex-col gap-y-1'}>
+                    <div className={'flex flex-col gap-y-2'}>
                         <div className={'card table head grid grid-cols-6 font-bold text-lg'}>
                             <span>Name</span>
                             <span>Slug</span>

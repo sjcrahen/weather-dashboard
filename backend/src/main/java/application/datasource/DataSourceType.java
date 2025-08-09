@@ -1,5 +1,5 @@
 package application.datasource;
 
 public enum DataSourceType {
-    SEAS, WIND, WEATHER, TIDES, CURRENT, FORECAST
+    SEAS, WIND, WEATHER, TIDE, CURRENT, FORECAST
 }

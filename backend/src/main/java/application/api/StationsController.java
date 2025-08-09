@@ -1,10 +1,15 @@
 package application.api;
 
+import application.datasource.DataSourceEntity;
 import application.station.StationEntity;
 import application.station.StationForm;
 import application.station.StationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -16,8 +21,10 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/admin/stations")
+@Slf4j
 public class StationsController {
 
+    private ObjectMapper objectMapper;
     private StationService stationService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,7 +62,7 @@ public class StationsController {
     }
 
     @PutMapping(value = "/{slug:^[a-z0-9]+(?:-[a-z0-9]+)*$}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> updateStation(@PathVariable String slug, @Valid @ModelAttribute StationForm stationForm, BindingResult result) {
+    public ResponseEntity<String> updateStation(@PathVariable String slug, @RequestParam("dataSourcesJson") String dataSourcesJson, @Valid @ModelAttribute StationForm stationForm, BindingResult result) {
         if (!result.hasErrors()) {
             StationEntity existing = stationService.getStationBySlug(slug);
             if (existing == null) {
@@ -63,6 +70,13 @@ public class StationsController {
             }
             if (!existing.getSlug().equals(slug)) {
                 result.addError(new ObjectError("station", "Station slug mismatch"));
+            }
+            try {
+                List<DataSourceEntity> datasources = objectMapper.readValue(dataSourcesJson, new TypeReference<List<DataSourceEntity>>() {
+                });
+                existing.setDataSources(datasources);
+            } catch (JsonProcessingException ignore) {
+                log.warn("Unable to deserialize data sources json: {}", dataSourcesJson);
             }
             StationEntity updated = stationService.update(stationForm.applyFormToEntity(existing));
             if (updated == null) {

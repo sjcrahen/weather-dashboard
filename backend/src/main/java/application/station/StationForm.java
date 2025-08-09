@@ -3,9 +3,8 @@ package application.station;
 import application.annotations.Slugify;
 import application.annotations.Trim;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class StationForm {
@@ -17,8 +16,6 @@ public class StationForm {
     @Slugify
     private String slug;
 
-    private List<Integer> dataSourceIds;
-
     @Trim
     @NotEmpty
     private String city;
@@ -27,10 +24,10 @@ public class StationForm {
     @NotEmpty
     private String state;
 
-    @NotEmpty
+    @NotNull
     private double latitude;
 
-    @NotEmpty
+    @NotNull
     private double longitude;
 
     @Trim

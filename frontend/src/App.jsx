@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import Login from './routes/Login.jsx';
-import ListStations from './routes/stations/ListStations.jsx';
+import ListStations from './routes/admin/ListStations.jsx';
 import Dashboard from './routes/Dashboard.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
-import EditStation from './routes/stations/EditStation.jsx';
+import EditStation from './routes/admin/EditStation.jsx';
 
 function App() {
     return (
