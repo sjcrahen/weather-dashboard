@@ -39,7 +39,7 @@ function ListStations() {
             <PageHeader label={'Stations'} />
             <MainContent data={data} loading={loading} error={error}>
                 {!loading && !error && data?.length > 0 && (
-                    <div className={'card flex flex-col table overflow-auto'}>
+                    <div className={'card flex flex-col table'}>
                         <div className={'table-header grid grid-cols-6 font-bold text-lg w-full'}>
                             <span>Name</span>
                             <span>Slug</span>
@@ -48,7 +48,7 @@ function ListStations() {
                             <span>Latitude</span>
                             <span>Longitude</span>
                         </div>
-                        <div className="overflow-auto">{data && renderedDataRows}</div>
+                        {data && renderedDataRows}
                     </div>
                 )}
                 {!loading && !error && data?.length === 0 && <p>No stations found.</p>}

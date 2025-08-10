@@ -36,13 +36,13 @@ function ListDataSources() {
             <PageHeader label={'Data Sources'} />
             <MainContent data={data} loading={loading} error={error}>
                 {!loading && !error && data?.length > 0 && (
-                    <div className={'card flex flex-col table overflow-auto'}>
+                    <div className={'card flex flex-col table'}>
                         <div className={'table-header grid grid-cols-3 font-bold text-lg w-full'}>
                             <span>Type</span>
                             <span>Name</span>
                             <span>Source Id</span>
                         </div>
-                        <div className="overflow-auto">{data && renderedDataRows}</div>
+                        {data && renderedDataRows}
                     </div>
                 )}
                 {!loading && !error && data?.length === 0 && <p>No data sources found.</p>}

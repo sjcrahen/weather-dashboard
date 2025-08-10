@@ -70,34 +70,36 @@ body {
         padding: 0;
 
         .table-header {
+            position: sticky;
+            top: -1.25rem;
             background-color: var(--card-3);
             padding: $spacer-3;
+            border-bottom: 1px solid var(--card-1);
 
             &:first-of-type {
                 border-radius: $radius-2 $radius-2 0 0;
             }
         }
 
-        span {
-            .table-item {
-                width: 100%;
-                background-color: var(--card-2);
-                border-top: 1px solid var(--card-1);
+        span .table-item, .table-item {
+            width: 100%;
+            background-color: var(--card-2);
+            border-top: 1px solid var(--card-1);
 
-                > * {
-                    margin-right: $spacer-4;
-                }
+            > * {
+                margin-right: $spacer-4;
+            }
 
-                &:is(button) {
-                    &:hover {
-                        outline: 2px solid var(--text);
-                        outline-offset: -2px;
-                        //border: 2px solid var(--text);
-                    }
+            &:is(button) {
+                &:hover {
+                    outline: 2px solid var(--text);
+                    outline-offset: -2px;
                 }
             }
 
             &:last-of-type {
+                border-radius: 0 0 $radius-2 $radius-2;
+
                 .table-item {
                     border-radius: 0 0 $radius-2 $radius-2;
                 }
@@ -158,12 +160,12 @@ body {
     }
 
     ::-webkit-scrollbar-track {
-        //border-radius: $radius-2;
-        background: var(--card-3);
+        border-radius: $radius-2;
+        background: var(--card-1);
     }
 
     ::-webkit-scrollbar-thumb {
-        background: var(--card-1);
+        background: var(--card-2);
         border-radius: $radius-2;
     }
 

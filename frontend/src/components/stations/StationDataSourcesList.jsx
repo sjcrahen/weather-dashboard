@@ -9,32 +9,54 @@ function StationDataSourcesList({ stationDataSources, setForm }) {
     const [types, setTypes] = useState([]);
     const [dataSources, setDataSources] = useState([]);
     const [filteredDataSources, setFilteredDataSources] = useState([]);
+    const [filterType, setFilterType] = useState('');
+    const [selectedDataSource, setSelectedDataSource] = useState('');
+    const [showPicker, setShowPicker] = useState(false);
     const token = localStorage.getItem('token');
     const options = useMemo(() => ({ headers: { Authorization: `Bearer ${token}` } }), [token]);
+    const stationDataSourceIds = useMemo(() => stationDataSources.map((ds) => ds.id), [stationDataSources]);
+
+    useEffect(() => {
+        doFetch('http://localhost:8080/api/admin/datasources', options);
+    }, [doFetch, options]);
 
     useEffect(() => {
         if (data) {
             setTypes(data.map((d) => d.type).sort());
             setDataSources(data);
-            setFilteredDataSources(data);
         }
     }, [data]);
 
+    useEffect(() => {
+        if (filterType === '') {
+            setFilteredDataSources(dataSources.filter((ds) => !stationDataSourceIds.includes(ds.id)));
+        } else {
+            setFilteredDataSources(dataSources.filter((ds) => ds.type === filterType && !stationDataSourceIds.includes(ds.id)));
+        }
+        setSelectedDataSource('');
+    }, [filterType, dataSources, stationDataSourceIds]);
+
     const insertNewDataSourceSelector = async () => {
-        await doFetch('http://localhost:8080/api/admin/datasources', options);
+        setShowPicker(true);
+    };
+
+    const resetDataSourcePicker = () => {
+        setShowPicker(false);
+        setFilteredDataSources([]);
+        setFilterType('');
+        setSelectedDataSource('');
     };
 
     const selectNewDataSource = (e) => {
-        setForm((prev) => ({
-            ...prev,
-            dataSources: [...prev.dataSources, data.filter((ds) => ds.id === parseInt(e.currentTarget.value))[0]],
-        }));
-        setFilteredDataSources([]);
-    };
-
-    const filterDataSourcesByType = (e) => {
-        const type = e.currentTarget.value;
-        setFilteredDataSources(dataSources.filter((p) => p.type === type));
+        const id = parseInt(e.target.value);
+        const newDataSource = dataSources.find((ds) => ds.id === id);
+        if (newDataSource) {
+            setForm((prev) => ({
+                ...prev,
+                dataSources: [...prev.dataSources, newDataSource],
+            }));
+            resetDataSourcePicker();
+        }
     };
 
     const moveItem = (from, to) => {
@@ -47,10 +69,6 @@ function StationDataSourcesList({ stationDataSources, setForm }) {
             ...prev,
             dataSources: updated,
         }));
-    };
-
-    const removeDataSourcePicker = () => {
-        setFilteredDataSources([]);
     };
 
     const deleteDataSource = (e) => {
@@ -117,22 +135,22 @@ function StationDataSourcesList({ stationDataSources, setForm }) {
                         <span>Identifier</span>
                     </div>
                     {stationDataSources && renderedDataSources}
-                    {filteredDataSources.length > 0 && (
+                    {showPicker && (
                         <div className="grid items-center px-6 py-4 new-data-source-picker">
                             <span className="temp-order">{stationDataSources.length + 1}</span>
-                            <select name="type" onChange={filterDataSourcesByType}>
-                                <option disabled defaultValue="">
+                            <select value={filterType} name="type" onChange={(e) => setFilterType(e.target.value)}>
+                                <option value="" disabled>
                                     Filter by type
                                 </option>
                                 {renderedTypeOptions}
                             </select>
-                            <select name="datasource" onChange={selectNewDataSource}>
-                                <option disabled defaultValue="">
+                            <select value={selectedDataSource} name="datasource" onChange={selectNewDataSource}>
+                                <option value="" disabled>
                                     Select a datasource
                                 </option>
                                 {renderedDataSourceOptions}
                             </select>
-                            <IconButton title="Cancel" onClick={removeDataSourcePicker} icon={<MdOutlineCancel />} />
+                            <IconButton title="Cancel" onClick={resetDataSourcePicker} icon={<MdOutlineCancel />} />
                         </div>
                     )}
                 </div>
