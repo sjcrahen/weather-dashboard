@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
-import MainContent from '../../components/layout/MainContent.jsx';
-import PageHeader from '../../components/layout/PageHeader.jsx';
-import Layout from '../../components/layout/Layout.jsx';
-import useFetch from '../../hooks/useFetch.jsx';
+import MainContent from '../../../components/layout/MainContent.jsx';
+import PageHeader from '../../../components/layout/PageHeader.jsx';
+import Layout from '../../../components/layout/Layout.jsx';
+import useFetch from '../../../hooks/useFetch.jsx';
 import { useEffect, useMemo, useState } from 'react';
-import StationForm from '../../components/stations/StationForm.jsx';
+import StationForm from '../../../components/stations/StationForm.jsx';
 
-function EditStation() {
+function CreateEditStation() {
     const { slug } = useParams();
     const { data, loading, error, doFetch } = useFetch();
     const [formData, setFormData] = useState({});
@@ -38,4 +38,4 @@ function EditStation() {
     );
 }
 
-export default EditStation;
+export default CreateEditStation;

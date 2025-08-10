@@ -1,0 +1,51 @@
+import MainContent from '../../../components/layout/MainContent.jsx';
+import { useNavigate } from 'react-router-dom';
+import PageHeader from '../../../components/layout/PageHeader.jsx';
+import Layout from '../../../components/layout/Layout.jsx';
+import useFetch from '../../../hooks/useFetch.jsx';
+import { useEffect, useMemo } from 'react';
+
+function ListDataSources() {
+    const navigate = useNavigate();
+    const { data, loading, error, doFetch } = useFetch();
+    const token = localStorage.getItem('token');
+
+    const options = useMemo(() => ({ headers: { Authorization: `Bearer ${token}` } }), [token]);
+
+    useEffect(() => {
+        doFetch(`http://localhost:8080/api/admin/datasources`, options);
+    }, [doFetch, options]);
+
+    const editDataSource = (e) => {
+        navigate(`/admin/datasources/${e.currentTarget.dataset.slug}`);
+    };
+
+    const renderedDataRows = data?.map((ds) => (
+        <button key={ds.id} onClick={editDataSource} className={'table-item grid grid-cols-3 justify-items-start px-6 py-4'} data-title={'Click to edit'}>
+            <span>{ds.type}</span>
+            <span>{ds.name}</span>
+            <span>{ds.sourceIdentifier}</span>
+        </button>
+    ));
+
+    return (
+        <Layout>
+            <PageHeader label={'Stations'} />
+            <MainContent data={data} loading={loading} error={error}>
+                {!loading && !error && data?.length > 0 && (
+                    <div className={'card flex flex-col table'}>
+                        <div className={'table-header grid grid-cols-3 font-bold text-lg w-full'}>
+                            <span>Type</span>
+                            <span>Name</span>
+                            <span>Source Id</span>
+                        </div>
+                        {data && renderedDataRows}
+                    </div>
+                )}
+                {!loading && !error && data?.length === 0 && <p>No data sources found.</p>}
+            </MainContent>
+        </Layout>
+    );
+}
+
+export default ListDataSources;

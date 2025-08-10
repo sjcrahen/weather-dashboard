@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import TooltipWrapper from '../TooltipWrapper.jsx';
 
-function LeftMenu() {
+function LeftNav() {
     const { logout } = useAuth();
     const navigate = useNavigate();
 
@@ -32,12 +32,12 @@ function LeftMenu() {
                 </button>
             </TooltipWrapper>
             <TooltipWrapper title="View all datasources">
-                <button className={'flex w-full justify-center transparent h-12'}>
+                <button className={'flex w-full justify-center transparent h-12'} onClick={() => navigate('/admin/datasources')}>
                     <BsDatabase className={'w-full h-full'} />
                 </button>
             </TooltipWrapper>
             <TooltipWrapper title="Add new datasource">
-                <button className={'flex w-full justify-center transparent h-12'}>
+                <button className={'flex w-full justify-center transparent h-12'} onClick={() => navigate('/admin/datasources/new')}>
                     <BsDatabaseAdd className={'w-full h-full'} />
                 </button>
             </TooltipWrapper>
@@ -50,4 +50,4 @@ function LeftMenu() {
     );
 }
 
-export default LeftMenu;
+export default LeftNav;
