@@ -13,12 +13,12 @@ form#edit-station {
         }
     }
     .table-header, .table-item {
-        grid-template-columns: 100px 100px auto 140px 47px;
+        grid-template-columns: 100px 100px auto 140px 60px;
 
     }
 
     .new-data-source-picker {
-        grid-template-columns: 100px 172px auto 47px;
+        grid-template-columns: 100px 172px auto 60px;
 
         .temp-order {
             border: 1px solid var(--card-3);

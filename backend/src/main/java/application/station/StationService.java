@@ -26,13 +26,12 @@ public class StationService {
         }
     }
 
-    public boolean createStation(StationEntity newStation) {
-        if (newStation == null) return false;
+    public StationEntity createStation(StationEntity newStation) {
+        if (newStation == null) return null;
         try {
-            stationRepository.save(newStation);
-            return true;
+            return stationRepository.save(newStation);
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 

@@ -31,6 +31,12 @@ body {
         width: 56px;
     }
 
+    .form-control.flex-1 {
+        input[type=number] {
+            width: unset;
+        }
+    }
+
     .card {
         background-color: var(--card-1);
         border-radius: $radius-2;
@@ -123,9 +129,9 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 47px;
-        width: 47px;
-        font-size: 28px;
+        height: 48px;
+        width: 48px;
+        //font-size: 28px;
         padding: 0 !important;
     }
 
@@ -137,6 +143,7 @@ body {
         }
     }
 
+    // scrollbar
     ::-webkit-scrollbar {
         width: 8px;
     }
@@ -151,31 +158,17 @@ body {
         border-radius: $radius-2;
     }
 
-    [data-title] {
-        position: relative;
-
-        &:after {
-            content: attr(data-title);
-            background-color: var(--text);
-            color: var(--card-2);
-            position: absolute;
-            padding: 4px 8px;
-            bottom: -60%;
-            left: 40%;
-            white-space: nowrap;
-            box-shadow: 1px 1px 3px #222222;
-            opacity: 0;
-            border: 1px solid var(--card-2);
-            border-radius: $radius-1;
-            z-index: 99999;
-            visibility: hidden;
-        }
-
-        &:hover:after {
-            opacity: 1;
-            transition: all 0.1s ease 0.5s;
-            visibility: visible;
-        }
+    div.tooltip {
+        position: fixed;
+        background-color: var(--text);
+        color: var(--card-2);
+        padding: 4px 8px;
+        border: 1px solid var(--card-2);
+        border-radius: $radius-2;
+        box-shadow: 1px 1px 3px #222;
+        z-index: 99999;
+        white-space: nowrap;
+        pointer-events: none;
     }
 
     .theme-toggle {

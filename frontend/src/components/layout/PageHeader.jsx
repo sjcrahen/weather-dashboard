@@ -1,4 +1,4 @@
-import { useAuth } from '../contexts/AuthContext.jsx';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 import { useEffect, useState } from 'react';
 
 function PageHeader({ label }) {

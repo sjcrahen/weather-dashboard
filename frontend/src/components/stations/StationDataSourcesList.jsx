@@ -1,6 +1,8 @@
 import { IoAddCircleOutline, IoTrashOutline } from 'react-icons/io5';
-import useFetch from '../hooks/useFetch.jsx';
+import useFetch from '../../hooks/useFetch.jsx';
 import { useEffect, useMemo, useState } from 'react';
+import IconButton from '../IconButton.jsx';
+import { MdOutlineCancel } from 'react-icons/md';
 
 function StationDataSourcesList({ stationDataSources, setForm }) {
     const { data, error, doFetch } = useFetch();
@@ -74,9 +76,7 @@ function StationDataSourcesList({ stationDataSources, setForm }) {
                 <span>{ds.type}</span>
                 <span>{ds.name}</span>
                 <span>{ds.sourceIdentifier}</span>
-                <button type="button" title="Remove datasource" data-index={index} className="icon" onClick={deleteDataSource}>
-                    <IoTrashOutline />
-                </button>
+                <IconButton title="Remove datasource" onClick={deleteDataSource} icon={<IoTrashOutline />} />
             </div>
         );
     });
@@ -101,7 +101,7 @@ function StationDataSourcesList({ stationDataSources, setForm }) {
                 <span>Datasources</span>
                 <button type="button" className="link" onClick={insertNewDataSourceSelector}>
                     <span className="flex flex-row gap-x-1 items-center">
-                        <IoAddCircleOutline className="color-text" />
+                        <IoAddCircleOutline className="color-text text-lg" />
                         Add
                     </span>
                 </button>
@@ -131,9 +131,7 @@ function StationDataSourcesList({ stationDataSources, setForm }) {
                                 </option>
                                 {renderedDataSourceOptions}
                             </select>
-                            <button type="button" title="Remove" className="icon" onClick={removeDataSourcePicker}>
-                                <IoTrashOutline />
-                            </button>
+                            <IconButton title="Cancel" onClick={removeDataSourcePicker} icon={<MdOutlineCancel />} />
                         </div>
                     )}
                 </div>

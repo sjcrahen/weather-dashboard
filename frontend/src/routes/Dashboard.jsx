@@ -1,7 +1,7 @@
-import Layout from '../components/Layout.jsx';
-import MainContent from '../components/MainContent.jsx';
+import Layout from '../components/layout/Layout.jsx';
+import MainContent from '../components/layout/MainContent.jsx';
 import { useState } from 'react';
-import PageHeader from '../components/PageHeader.jsx';
+import PageHeader from '../components/layout/PageHeader.jsx';
 
 function Dashboard() {
     const [data, setData] = useState('');

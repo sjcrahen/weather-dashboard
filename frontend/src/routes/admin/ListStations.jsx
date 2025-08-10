@@ -1,7 +1,7 @@
-import MainContent from '../../components/MainContent.jsx';
+import MainContent from '../../components/layout/MainContent.jsx';
 import { useNavigate } from 'react-router-dom';
-import PageHeader from '../../components/PageHeader.jsx';
-import Layout from '../../components/Layout.jsx';
+import PageHeader from '../../components/layout/PageHeader.jsx';
+import Layout from '../../components/layout/Layout.jsx';
 import useFetch from '../../hooks/useFetch.jsx';
 import { useEffect, useMemo } from 'react';
 
@@ -16,12 +16,12 @@ function ListStations() {
         doFetch(`http://localhost:8080/api/admin/stations`, options);
     }, [doFetch, options]);
 
-    const editStation = e => {
+    const editStation = (e) => {
         navigate(`/admin/stations/${e.currentTarget.dataset.slug}`);
     };
 
     const renderedDataRows = Array.isArray(data)
-        ? data.map(station => (
+        ? data.map((station) => (
               <button
                   key={station.id}
                   onClick={editStation}
@@ -50,8 +50,8 @@ function ListStations() {
                             <span>Slug</span>
                             <span>City</span>
                             <span>State</span>
-                            <span>Lat</span>
-                            <span>Long</span>
+                            <span>Latitude</span>
+                            <span>Longitude</span>
                         </div>
                         {data && renderedDataRows}
                     </div>

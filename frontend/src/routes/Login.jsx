@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { FaLock, FaUser } from 'react-icons/fa';
 import { FaCircleUser } from 'react-icons/fa6';
-import MainContent from '../components/MainContent.jsx';
-import Layout from '../components/Layout.jsx';
-import PageHeader from '../components/PageHeader.jsx';
+import MainContent from '../components/layout/MainContent.jsx';
+import Layout from '../components/layout/Layout.jsx';
+import PageHeader from '../components/layout/PageHeader.jsx';
 
 function Login() {
     const { login } = useAuth();
     const navigate = useNavigate();
     const [loginForm, setLoginForm] = useState({ username: '', password: '' });
 
-    const handleLogin = async e => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         const success = await login(loginForm);
         if (success) {
@@ -23,7 +23,7 @@ function Login() {
         }
     };
 
-    const handleFieldInput = e => {
+    const handleFieldInput = (e) => {
         setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
     };
 

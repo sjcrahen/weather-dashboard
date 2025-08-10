@@ -41,24 +41,32 @@ public class StationsController {
         return ResponseEntity.ok(StationForm.entityToForm(stationEntity));
     }
 
-    @PostMapping()
-    public ResponseEntity<String> createStation(@Valid @RequestBody StationForm stationForm, BindingResult result) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<StationForm> createStation(@RequestParam("dataSourcesJson") String dataSourcesJson, @Valid @ModelAttribute StationForm stationForm, BindingResult result) {
+        StationEntity newStation = null;
         if (!result.hasErrors()) {
             StationEntity existing = stationService.getStationBySlug(stationForm.getSlug());
             if (existing != null) {
                 result.addError(new ObjectError("station", "This station slug is already in use"));
             }
-            StationEntity newStation = stationForm.formToEntity();
-            boolean success = stationService.createStation(newStation);
-            if (!success) {
+            newStation = stationForm.formToEntity();
+            try {
+                List<DataSourceEntity> datasources = objectMapper.readValue(dataSourcesJson, new TypeReference<>() {
+                });
+                newStation.setDataSources(datasources);
+            } catch (JsonProcessingException ex) {
+                log.warn("Unable to deserialize data sources json: {}", dataSourcesJson);
+            }
+            newStation = stationService.createStation(newStation);
+            if (newStation == null) {
                 result.addError(new ObjectError("station", "Unable to create station"));
             }
         }
 
         if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(result.getAllErrors().get(0).getDefaultMessage());
+            return ResponseEntity.badRequest().body(StationForm.entityToForm(newStation, result));
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(StationForm.entityToForm(newStation));
     }
 
     @PutMapping(value = "/{slug:^[a-z0-9]+(?:-[a-z0-9]+)*$}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -73,10 +81,10 @@ public class StationsController {
                 result.addError(new ObjectError("station", "Station slug mismatch"));
             }
             try {
-                List<DataSourceEntity> datasources = objectMapper.readValue(dataSourcesJson, new TypeReference<List<DataSourceEntity>>() {
+                List<DataSourceEntity> datasources = objectMapper.readValue(dataSourcesJson, new TypeReference<>() {
                 });
                 existing.setDataSources(datasources);
-            } catch (JsonProcessingException ignore) {
+            } catch (JsonProcessingException ex) {
                 log.warn("Unable to deserialize data sources json: {}", dataSourcesJson);
             }
             updated = stationService.update(stationForm.applyFormToEntity(existing));
