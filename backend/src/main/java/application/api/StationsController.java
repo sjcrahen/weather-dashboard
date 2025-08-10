@@ -33,12 +33,12 @@ public class StationsController {
     }
 
     @GetMapping(value = "/{slug:^[a-z0-9]+(?:-[a-z0-9]+)*$}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<StationEntity> getStation(@PathVariable String slug) {
+    public ResponseEntity<StationForm> getStation(@PathVariable String slug) {
         StationEntity stationEntity = stationService.getStationBySlug(slug);
         if (stationEntity == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(stationEntity);
+        return ResponseEntity.ok(StationForm.entityToForm(stationEntity));
     }
 
     @PostMapping()
@@ -62,7 +62,8 @@ public class StationsController {
     }
 
     @PutMapping(value = "/{slug:^[a-z0-9]+(?:-[a-z0-9]+)*$}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> updateStation(@PathVariable String slug, @RequestParam("dataSourcesJson") String dataSourcesJson, @Valid @ModelAttribute StationForm stationForm, BindingResult result) {
+    public ResponseEntity<StationForm> updateStation(@PathVariable String slug, @RequestParam("dataSourcesJson") String dataSourcesJson, @Valid @ModelAttribute StationForm stationForm, BindingResult result) {
+        StationEntity updated = null;
         if (!result.hasErrors()) {
             StationEntity existing = stationService.getStationBySlug(slug);
             if (existing == null) {
@@ -78,16 +79,15 @@ public class StationsController {
             } catch (JsonProcessingException ignore) {
                 log.warn("Unable to deserialize data sources json: {}", dataSourcesJson);
             }
-            StationEntity updated = stationService.update(stationForm.applyFormToEntity(existing));
+            updated = stationService.update(stationForm.applyFormToEntity(existing));
             if (updated == null) {
                 result.addError(new ObjectError("station", "Unable to update station"));
             }
         }
-
         if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(result.getAllErrors().get(0).getDefaultMessage());
+            return ResponseEntity.badRequest().body(StationForm.entityToForm(updated, result));
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(StationForm.entityToForm(updated));
     }
 
 }

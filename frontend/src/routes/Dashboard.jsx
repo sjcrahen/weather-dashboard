@@ -1,7 +1,7 @@
 import Layout from '../components/Layout.jsx';
 import MainContent from '../components/MainContent.jsx';
 import { useState } from 'react';
-import Header from '../components/Header.jsx';
+import PageHeader from '../components/PageHeader.jsx';
 
 function Dashboard() {
     const [data, setData] = useState('');
@@ -10,9 +10,9 @@ function Dashboard() {
 
     return (
         <Layout>
-            <Header label={'Dashboard'} />
+            <PageHeader label={'Dashboard'} />
             <MainContent data={data} loading={loading} error={error}>
-                {!loading && !error && data.length && <div>This is the dashboard!</div>}
+                {!loading && !error && data.length > 0 && <div>This is the dashboard!</div>}
                 {!loading && !error && data.length === 0 && <p>No data found.</p>}
             </MainContent>
         </Layout>

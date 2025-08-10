@@ -5,7 +5,7 @@ import { FaLock, FaUser } from 'react-icons/fa';
 import { FaCircleUser } from 'react-icons/fa6';
 import MainContent from '../components/MainContent.jsx';
 import Layout from '../components/Layout.jsx';
-import Header from '../components/Header.jsx';
+import PageHeader from '../components/PageHeader.jsx';
 
 function Login() {
     const { login } = useAuth();
@@ -29,10 +29,10 @@ function Login() {
 
     return (
         <Layout>
-            <Header label={''} />
+            <PageHeader label={''} />
             <MainContent>
                 <form onSubmit={handleLogin} className={'flex items-center justify-center h-screen'}>
-                    <div className={'card flex-col items-center gap-y-7'}>
+                    <div className={'card flex-col items-center gap-y-7 w-1/4'}>
                         <FaCircleUser className={'size-20 c-card-1'} />
                         <div className={'relative'}>
                             <input className={'pr-10'} type="text" name="username" value={loginForm.username} onInput={handleFieldInput} placeholder="Username" />

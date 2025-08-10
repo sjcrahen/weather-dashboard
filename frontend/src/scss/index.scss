@@ -1,5 +1,6 @@
 @use "reset";
 @use "root-variables";
+@use "edit-station";
 @use "sass-variables" as *;
 
 @tailwind base;
@@ -7,131 +8,179 @@
 @tailwind utilities;
 
 body {
-  background-color: var(--background);
-  color: var(--text);
+    background-color: var(--background);
+    color: var(--text);
 
-  .color-text {
-    color: var(--text) !important;
-  }
+    .color-text {
+        color: var(--text) !important;
+    }
 
-  .card {
-    background-color: var(--card-1);
-    border-radius: $radius-2;
-    padding: $spacer-3;
-    display: flex;
+    .bg-color-card-1 {
+        background-color: var(--card-1);
+    }
 
-    svg {
-      color: var(--card-2);
+    label.required {
+        &:after {
+            content: '*';
+            color: #cc0000;
+            margin-left: 4px;
+        }
+    }
+
+    input[type=number] {
+        width: 56px;
     }
 
     .card {
-      background-color: var(--card-2);
-
-      svg {
-        color: var(--card-3);
-      }
-
-      .card {
-        background-color: var(--card-3);
+        background-color: var(--card-1);
+        border-radius: $radius-2;
+        padding: $spacer-3;
+        display: flex;
+        container-type: inline-size;
 
         svg {
-          color: var(--text);
+            color: var(--card-2);
         }
-      }
 
+        .card {
+            background-color: var(--card-2);
+
+            svg {
+                color: var(--card-3);
+            }
+
+            .card {
+                background-color: var(--card-3);
+
+                svg {
+                    color: var(--text);
+                }
+            }
+
+        }
     }
 
-    &.table {
-      padding: $spacer-2;
-      border-radius: $radius-1;
+    .table {
+        padding: 0;
+
+        .table-header {
+            background-color: var(--card-3);
+            padding: $spacer-3;
+
+            &:first-of-type {
+                border-radius: $radius-2 $radius-2 0 0;
+            }
+        }
+
+        .table-item {
+            background-color: var(--card-2);
+            border-top: 1px solid var(--card-1);
+
+            &:last-of-type {
+                border-radius: 0 0 $radius-2 $radius-2;
+            }
+
+            &:is(button) {
+                &:hover {
+                    outline: 2px solid var(--text);
+                    outline-offset: -2px;
+                    //border: 2px solid var(--text);
+                }
+            }
+        }
     }
 
-    &.grid {
-      display: grid;
-    }
-  }
+    input, button:not(.link):not(.table-item), select {
+        padding: $spacer-2;
+        background-color: var(--background);
+        border-radius: $radius-2;
 
-  input, button:not(.link) {
-    padding: $spacer-2;
-    background-color: var(--background);
-    border-radius: $radius-2;
+        &.small {
+            padding: $spacer-1;
+            border-radius: $radius-1;
+        }
 
-    &.small {
-      padding: $spacer-1;
-      border-radius: $radius-1;
-    }
+        &.outline-btn {
+            background-color: transparent;
+            border: 2px solid var(--background);
 
-    &.outline-btn {
-      background-color: transparent;
-      border: 2px solid var(--background);
+            svg {
+                color: var(--background);
+            }
+        }
 
-      svg {
-        color: var(--background);
-      }
-    }
+        &.transparent {
+            padding: 0;
+            background-color: transparent;
 
-    &.transparent {
-      padding: 0;
-      background-color: transparent;
-
-      &:hover * {
-        color: var(--text);
-      }
-    }
-  }
-
-  button:not(.link):not(.transparent) {
-    transition: box-shadow 0.3s ease;
-
-    &:hover {
-      box-shadow: 3px 3px 8px 2px var(--button-shadow);
-    }
-  }
-
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    border-radius: $radius-2;
-    background: var(--card-1);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--card-2);
-    border-radius: $radius-2;
-  }
-
-  [data-title] {
-    position: relative;
-
-    &:after {
-      content: attr(data-title);
-      background-color: var(--text);
-      color: var(--card-2);
-      position: absolute;
-      padding: 4px 8px;
-      bottom: -60%;
-      left: 40%;
-      white-space: nowrap;
-      box-shadow: 1px 1px 3px #222222;
-      opacity: 0;
-      border: 1px solid var(--card-2);
-      border-radius: $radius-1;
-      z-index: 99999;
-      visibility: hidden;
+            &:hover * {
+                color: var(--text);
+            }
+        }
     }
 
-    &:hover:after {
-      opacity: 1;
-      transition: all 0.1s ease 0.5s;
-      visibility: visible;
+    button.icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 47px;
+        width: 47px;
+        font-size: 28px;
+        padding: 0 !important;
     }
-  }
 
-  .theme-toggle {
-    span {
-      background-color: var(--card-2);
+    button:not(.link):not(.transparent):not(.table-item) {
+        transition: box-shadow 0.3s ease;
+
+        &:hover {
+            box-shadow: 3px 3px 8px 2px var(--button-shadow);
+        }
     }
-  }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: $radius-2;
+        background: var(--card-1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--card-2);
+        border-radius: $radius-2;
+    }
+
+    [data-title] {
+        position: relative;
+
+        &:after {
+            content: attr(data-title);
+            background-color: var(--text);
+            color: var(--card-2);
+            position: absolute;
+            padding: 4px 8px;
+            bottom: -60%;
+            left: 40%;
+            white-space: nowrap;
+            box-shadow: 1px 1px 3px #222222;
+            opacity: 0;
+            border: 1px solid var(--card-2);
+            border-radius: $radius-1;
+            z-index: 99999;
+            visibility: hidden;
+        }
+
+        &:hover:after {
+            opacity: 1;
+            transition: all 0.1s ease 0.5s;
+            visibility: visible;
+        }
+    }
+
+    .theme-toggle {
+        span {
+            background-color: var(--card-2);
+        }
+    }
 }

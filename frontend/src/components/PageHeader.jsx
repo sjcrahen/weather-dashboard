@@ -1,7 +1,7 @@
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { useEffect, useState } from 'react';
 
-function Header({ label }) {
+function PageHeader({ label }) {
     const { isAuthenticated } = useAuth();
     const [isDarkTheme, setIsDarkTheme] = useState(localStorage.getItem('theme') != null);
 
@@ -39,4 +39,4 @@ function Header({ label }) {
     );
 }
 
-export default Header;
+export default PageHeader;
