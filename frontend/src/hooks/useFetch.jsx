@@ -25,7 +25,7 @@ function useFetch() {
 
             try {
                 const res = await fetch(url, { ...options, signal });
-                if (res.status === 401) {
+                if (res.status === 403) {
                     navigate('/login');
                     setData(null);
                 }

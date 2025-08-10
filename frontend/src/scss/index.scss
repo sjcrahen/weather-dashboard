@@ -78,21 +78,31 @@ body {
             }
         }
 
-        .table-item {
-            background-color: var(--card-2);
-            border-top: 1px solid var(--card-1);
+        span {
+            .table-item {
+                width: 100%;
+                background-color: var(--card-2);
+                border-top: 1px solid var(--card-1);
 
-            &:last-of-type {
-                border-radius: 0 0 $radius-2 $radius-2;
-            }
+                > * {
+                    margin-right: $spacer-4;
+                }
 
-            &:is(button) {
-                &:hover {
-                    outline: 2px solid var(--text);
-                    outline-offset: -2px;
-                    //border: 2px solid var(--text);
+                &:is(button) {
+                    &:hover {
+                        outline: 2px solid var(--text);
+                        outline-offset: -2px;
+                        //border: 2px solid var(--text);
+                    }
                 }
             }
+
+            &:last-of-type {
+                .table-item {
+                    border-radius: 0 0 $radius-2 $radius-2;
+                }
+            }
+
         }
     }
 
@@ -143,18 +153,17 @@ body {
         }
     }
 
-    // scrollbar
     ::-webkit-scrollbar {
-        width: 8px;
+        width: 10px;
     }
 
     ::-webkit-scrollbar-track {
-        border-radius: $radius-2;
-        background: var(--card-1);
+        //border-radius: $radius-2;
+        background: var(--card-3);
     }
 
     ::-webkit-scrollbar-thumb {
-        background: var(--card-2);
+        background: var(--card-1);
         border-radius: $radius-2;
     }
 
@@ -169,6 +178,14 @@ body {
         z-index: 99999;
         white-space: nowrap;
         pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease;
+
+        &.visible {
+            opacity: 1;
+            visibility: visible;
+        }
     }
 
     .theme-toggle {

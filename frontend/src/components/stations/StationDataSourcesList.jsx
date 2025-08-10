@@ -76,7 +76,7 @@ function StationDataSourcesList({ stationDataSources, setForm }) {
                 <span>{ds.type}</span>
                 <span>{ds.name}</span>
                 <span>{ds.sourceIdentifier}</span>
-                <IconButton title="Remove datasource" onClick={deleteDataSource} icon={<IoTrashOutline />} />
+                <IconButton title="Remove datasource" attrs={{ 'data-index': index }} onClick={deleteDataSource} icon={<IoTrashOutline />} />
             </div>
         );
     });
@@ -91,7 +91,8 @@ function StationDataSourcesList({ stationDataSources, setForm }) {
 
     const renderedDataSourceOptions = filteredDataSources.map((ds) => (
         <option key={ds.id} value={ds.id}>
-            {ds.name} - {ds.sourceIdentifier}
+            {ds.sourceIdentifier} - {ds.name.substring(0, Math.min(ds.name.length, 30))}
+            {ds.name.length >= 30 ? '...' : ''}
         </option>
     ));
 
@@ -120,13 +121,13 @@ function StationDataSourcesList({ stationDataSources, setForm }) {
                         <div className="grid items-center px-6 py-4 new-data-source-picker">
                             <span className="temp-order">{stationDataSources.length + 1}</span>
                             <select name="type" onChange={filterDataSourcesByType}>
-                                <option value="" disabled selected>
+                                <option disabled defaultValue="">
                                     Filter by type
                                 </option>
                                 {renderedTypeOptions}
                             </select>
                             <select name="datasource" onChange={selectNewDataSource}>
-                                <option value="" disabled selected>
+                                <option disabled defaultValue="">
                                     Select a datasource
                                 </option>
                                 {renderedDataSourceOptions}

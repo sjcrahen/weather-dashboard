@@ -58,19 +58,10 @@ function StationForm({ data, slug, doFetch }) {
         <form id="edit-station" onSubmit={submitForm} className={'flex flex-col gap-y-4'}>
             <div className="flex flex-row gap-x-8 h-full">
                 <div className={'flex flex-col gap-y-4 flex-1'}>
-                    <Input label="Name" type="text" name="name" value={form.name} onInput={handleFieldInput} required={true} attrs='{"maxLength":"50"}' />
-                    <Input label="Slug" type="text" name="slug" value={form.slug} onInput={handleFieldInput} required={true} attrs='{"maxLength":"50"}' />
+                    <Input label="Name" type="text" name="name" value={form.name} onInput={handleFieldInput} required={true} attrs={{ maxLength: '50' }} />
+                    <Input label="Slug" type="text" name="slug" value={form.slug} onInput={handleFieldInput} required={true} attrs={{ maxLength: '50' }} />
                     <div className={'flex flex-row gap-x-4'}>
-                        <Input
-                            containerClass="grow"
-                            label="City"
-                            type="text"
-                            name="city"
-                            value={form.city}
-                            onInput={handleFieldInput}
-                            required={true}
-                            attrs='{"maxLength":"100"}'
-                        />
+                        <Input containerClass="grow" label="City" type="text" name="city" value={form.city} onInput={handleFieldInput} required={true} attrs={{ maxLength: 100 }} />
                         <Input
                             containerClass="flex-none w-14"
                             label="State"
@@ -79,10 +70,10 @@ function StationForm({ data, slug, doFetch }) {
                             value={form.state}
                             onInput={handleFieldInput}
                             required={true}
-                            attrs='{"maxLength":"2"}'
+                            attrs={{ maxLength: 2 }}
                         />
                     </div>
-                    <Input label="Timezone" type="text" name="timezone" value={form.timezone} onInput={handleFieldInput} required={true} attrs='{"maxLength":"50"}' />
+                    <Input label="Timezone" type="text" name="timezone" value={form.timezone} onInput={handleFieldInput} required={true} attrs={{ maxLength: '50' }} />
                     <div className={'flex flex-row gap-x-4'}>
                         <Input
                             containerClass="flex-initial w-28"
@@ -92,7 +83,7 @@ function StationForm({ data, slug, doFetch }) {
                             value={form.latitude}
                             onInput={handleFieldInput}
                             required={true}
-                            attrs='{"pattern":"^-?\\d*\\.?\\d*$"}'
+                            attrs={{ pattern: '^-?\\d*\\.?\\d*$' }}
                         />
                         <Input
                             containerClass="flex-initial w-28"
@@ -102,7 +93,7 @@ function StationForm({ data, slug, doFetch }) {
                             value={form.longitude}
                             onInput={handleFieldInput}
                             required={true}
-                            attrs='{"pattern":"^-?\\d*\\.?\\d*$"}'
+                            attrs={{ pattern: '^-?\\d*\\.?\\d*$' }}
                         />
                     </div>
                 </div>

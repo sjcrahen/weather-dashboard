@@ -4,6 +4,7 @@ import PageHeader from '../../../components/layout/PageHeader.jsx';
 import Layout from '../../../components/layout/Layout.jsx';
 import useFetch from '../../../hooks/useFetch.jsx';
 import { useEffect, useMemo } from 'react';
+import TooltipWrapper from '../../../components/TooltipWrapper.jsx';
 
 function ListDataSources() {
     const navigate = useNavigate();
@@ -21,25 +22,27 @@ function ListDataSources() {
     };
 
     const renderedDataRows = data?.map((ds) => (
-        <button key={ds.id} onClick={editDataSource} className={'table-item grid grid-cols-3 justify-items-start px-6 py-4'} data-title={'Click to edit'}>
-            <span>{ds.type}</span>
-            <span>{ds.name}</span>
-            <span>{ds.sourceIdentifier}</span>
-        </button>
+        <TooltipWrapper title="Click to edit" key={ds.id}>
+            <button onClick={editDataSource} className="table-item grid grid-cols-3 justify-items-start px-6 py-4 w-full">
+                <span>{ds.type}</span>
+                <span className="text-left">{ds.name}</span>
+                <span>{ds.sourceIdentifier}</span>
+            </button>
+        </TooltipWrapper>
     ));
 
     return (
         <Layout>
-            <PageHeader label={'Stations'} />
+            <PageHeader label={'Data Sources'} />
             <MainContent data={data} loading={loading} error={error}>
                 {!loading && !error && data?.length > 0 && (
-                    <div className={'card flex flex-col table'}>
+                    <div className={'card flex flex-col table overflow-auto'}>
                         <div className={'table-header grid grid-cols-3 font-bold text-lg w-full'}>
                             <span>Type</span>
                             <span>Name</span>
                             <span>Source Id</span>
                         </div>
-                        {data && renderedDataRows}
+                        <div className="overflow-auto">{data && renderedDataRows}</div>
                     </div>
                 )}
                 {!loading && !error && data?.length === 0 && <p>No data sources found.</p>}

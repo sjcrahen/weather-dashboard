@@ -1,5 +1,4 @@
 function Input({ label, type, name, value, onInput, required, containerClass, attrs }) {
-    const parsedAttrs = attrs == null ? {} : JSON.parse(attrs);
     return (
         <div className={`form-control flex flex-col ${containerClass ?? ''}`}>
             {label && (
@@ -7,7 +6,7 @@ function Input({ label, type, name, value, onInput, required, containerClass, at
                     {label}
                 </label>
             )}
-            <input id={`${name}-input`} type={type} name={name} autoComplete="off" value={value} onInput={onInput} required={required} {...parsedAttrs} />
+            <input id={`${name}-input`} type={type} name={name} autoComplete="off" value={value} onInput={onInput} required={required} {...attrs} />
         </div>
     );
 }

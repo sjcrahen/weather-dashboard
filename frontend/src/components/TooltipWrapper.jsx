@@ -31,15 +31,12 @@ function TooltipWrapper({ children, title }) {
 
     return (
         <>
-            <span ref={wrapperRef} style={{ display: 'inline-block', position: 'relative' }} onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>
+            <span ref={wrapperRef} className="tooltip-wrapper" onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>
                 {children}
             </span>
-
-            {visible && (
-                <div ref={tooltipRef} className="tooltip" style={{ top: position.top, left: position.left }}>
-                    {title}
-                </div>
-            )}
+            <div ref={tooltipRef} className={`tooltip ${visible ? 'visible' : ''}`} style={{ top: position.top, left: position.left }}>
+                {title}
+            </div>
         </>
     );
 }
