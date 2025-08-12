@@ -1,5 +1,6 @@
 package application.config;
 
+import application.serialization.TransformAnnotationIntrospector;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;

@@ -81,19 +81,21 @@ body {
             }
         }
 
-        span .table-item, .table-item {
-            width: 100%;
-            background-color: var(--card-2);
-            border-top: 1px solid var(--card-1);
+        span {
+            .table-item {
+                width: 100%;
+                background-color: var(--card-2);
+                border-top: 1px solid var(--card-1);
 
-            > * {
-                margin-right: $spacer-4;
-            }
+                > * {
+                    margin-right: $spacer-4;
+                }
 
-            &:is(button) {
-                &:hover {
-                    outline: 2px solid var(--text);
-                    outline-offset: -2px;
+                &:is(button) {
+                    &:hover {
+                        outline: 2px solid var(--text);
+                        outline-offset: -2px;
+                    }
                 }
             }
 

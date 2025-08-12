@@ -1,5 +1,6 @@
 package application.config;
 
+import application.auth.JwtAuthFilter;
 import application.user.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

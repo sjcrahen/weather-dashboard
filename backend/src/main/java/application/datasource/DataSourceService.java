@@ -3,6 +3,7 @@ package application.datasource;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,15 @@ public class DataSourceService {
             return dataSourceRepository.save(toUpdate);
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    public List<DataSourceEntity> getByTypesIn(List<DataSourceType> types) {
+        if (types == null) return new ArrayList<>();
+        try {
+            return dataSourceRepository.findByTypeIn(types);
+        } catch (Exception e) {
+            return new ArrayList<>();
         }
     }
 }

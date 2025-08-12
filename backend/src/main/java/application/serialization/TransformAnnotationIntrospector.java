@@ -1,4 +1,4 @@
-package application.config;
+package application.serialization;
 
 import application.annotations.Slugify;
 import application.annotations.Trim;
