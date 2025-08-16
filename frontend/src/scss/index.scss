@@ -1,6 +1,7 @@
 @use "reset";
 @use "root-variables";
-@use "edit-station";
+@use "create-edit-station";
+@use "dashboard";
 @use "sass-variables" as *;
 
 @tailwind base;
@@ -16,7 +17,7 @@ body {
     }
 
     .bg-color-card-1 {
-        background-color: var(--card-1);
+        background-color: var(--card-1) !important;
     }
 
     label.required {
@@ -66,47 +67,47 @@ body {
         }
     }
 
-    .table {
-        padding: 0;
+    .table-header {
+        background-color: var(--card-2);
+        padding: $spacer-3;
+        border-bottom: 1px solid var(--background);
+        border-radius: $radius-2 $radius-2 0 0;
+    }
 
-        .table-header {
-            position: sticky;
-            top: -1.25rem;
-            background-color: var(--card-3);
-            padding: $spacer-3;
-            border-bottom: 1px solid var(--card-1);
+    span {
+        .table-item {
+            width: 100%;
+            background-color: var(--card-1);
+            border-top: 1px solid var(--background);
 
-            &:first-of-type {
-                border-radius: $radius-2 $radius-2 0 0;
+            > * {
+                margin-right: $spacer-4;
+            }
+
+            &:is(button) {
+                &:hover {
+                    outline: 2px solid var(--text);
+                    outline-offset: -2px;
+                }
             }
         }
 
-        span {
+        &:last-of-type {
+            border-radius: 0 0 $radius-2 $radius-2;
+
             .table-item {
-                width: 100%;
-                background-color: var(--card-2);
-                border-top: 1px solid var(--card-1);
-
-                > * {
-                    margin-right: $spacer-4;
-                }
-
-                &:is(button) {
-                    &:hover {
-                        outline: 2px solid var(--text);
-                        outline-offset: -2px;
-                    }
-                }
-            }
-
-            &:last-of-type {
                 border-radius: 0 0 $radius-2 $radius-2;
-
-                .table-item {
-                    border-radius: 0 0 $radius-2 $radius-2;
-                }
             }
+        }
 
+    }
+
+    select {
+        border: 2px solid var(--card-1);
+
+        &:focus-visible {
+            outline: var(--card-2) 2px solid;
+            outline-offset: -1px;
         }
     }
 
@@ -145,15 +146,24 @@ body {
         justify-content: center;
         height: 48px;
         width: 48px;
-        //font-size: 28px;
         padding: 0 !important;
+    }
+
+    button {
+        font-weight: 500;
+        border: 2px solid transparent;
     }
 
     button:not(.link):not(.transparent):not(.table-item) {
         transition: box-shadow 0.3s ease;
 
         &:hover {
-            box-shadow: 3px 3px 8px 2px var(--button-shadow);
+            border: 2px solid var(--text);
+            color: var(--text);
+
+            svg {
+                color: var(--text);
+            }
         }
     }
 
@@ -162,13 +172,13 @@ body {
     }
 
     ::-webkit-scrollbar-track {
-        border-radius: $radius-2;
-        background: var(--card-1);
+        //border-radius: $radius-2;
+        background: var(--background-1);
     }
 
     ::-webkit-scrollbar-thumb {
         background: var(--card-2);
-        border-radius: $radius-2;
+        //border-radius: $radius-2;
     }
 
     div.tooltip {
@@ -195,6 +205,16 @@ body {
     .theme-toggle {
         span {
             background-color: var(--card-2);
+        }
+    }
+
+    .rotatable-content {
+        position: relative;
+
+        *:first-child {
+            position: absolute;
+            top: 50%;
+            left: 50%;
         }
     }
 }

@@ -8,6 +8,7 @@ $light-theme: (
         card-2: color.scale(#f9fafb, $lightness: -10%),
         card-3: color.scale(#f9fafb, $lightness: -15%),
         text: #1a2a3d,
+        shadow: rgba(#1a2a3d, 0.3),
         links: #1e5bc6,
         main-accent: #020c1b,
         button-shadow: color.scale(#f9fafb, $lightness: -2%),
@@ -20,6 +21,7 @@ $dark-theme: (
         card-2: color.scale(#1a2a3d, $lightness: 12%),
         card-3: color.scale(#1a2a3d, $lightness: 19%),
         text: #d1d9e6,
+        shadow: rgba(#d1d9e6, 0.4),
         links: #4a90e2,
         main-accent: #020c1b,
         button-shadow: color.scale(#1a2a3d, $lightness: -25%)

@@ -116,44 +116,41 @@ function StationDataSourcesList({ stationDataSources, setForm }) {
 
     return (
         <>
-            <div className="mb-1 flex justify-between items-center">
-                <span>Datasources</span>
-                <button type="button" className="link" onClick={insertNewDataSourceSelector}>
-                    <span className="flex flex-row gap-x-1 items-center">
-                        <IoAddCircleOutline className="color-text text-lg" />
-                        Add
-                    </span>
-                </button>
-            </div>
-
-            <div className="flex flex-col gap-y-2">
-                <div className="card flex flex-col table">
-                    <div className="grid table-header font-bold text-lg w-full">
-                        <span>Order</span>
-                        <span>Type</span>
-                        <span>Name</span>
-                        <span>Identifier</span>
-                    </div>
-                    {stationDataSources && renderedDataSources}
-                    {showPicker && (
-                        <div className="grid items-center px-6 py-4 new-data-source-picker">
-                            <span className="temp-order">{stationDataSources.length + 1}</span>
-                            <select value={filterType} name="type" onChange={(e) => setFilterType(e.target.value)}>
-                                <option value="" disabled>
-                                    Filter by type
-                                </option>
-                                {renderedTypeOptions}
-                            </select>
-                            <select value={selectedDataSource} name="datasource" onChange={selectNewDataSource}>
-                                <option value="" disabled>
-                                    Select a datasource
-                                </option>
-                                {renderedDataSourceOptions}
-                            </select>
-                            <IconButton title="Cancel" onClick={resetDataSourcePicker} icon={<MdOutlineCancel />} />
-                        </div>
-                    )}
+            <div className="card flex flex-col table">
+                <div className="mb-1 flex justify-between items-center">
+                    <span>Datasources</span>
+                    <button type="button" className="link" onClick={insertNewDataSourceSelector}>
+                        <span className="flex flex-row gap-x-1 items-center">
+                            <IoAddCircleOutline className="color-text text-lg" />
+                            Add
+                        </span>
+                    </button>
                 </div>
+                <div className="grid table-header font-bold text-lg w-full">
+                    <span>Order</span>
+                    <span>Type</span>
+                    <span>Name</span>
+                    <span>Identifier</span>
+                </div>
+                {stationDataSources && renderedDataSources}
+                {showPicker && (
+                    <div className="grid items-center px-6 py-4 new-data-source-picker">
+                        <span className="temp-order">{stationDataSources.length + 1}</span>
+                        <select value={filterType} name="type" onChange={(e) => setFilterType(e.target.value)}>
+                            <option value="" disabled>
+                                Filter by type
+                            </option>
+                            {renderedTypeOptions}
+                        </select>
+                        <select value={selectedDataSource} name="datasource" onChange={selectNewDataSource}>
+                            <option value="" disabled>
+                                Select a datasource
+                            </option>
+                            {renderedDataSourceOptions}
+                        </select>
+                        <IconButton title="Cancel" onClick={resetDataSourcePicker} icon={<MdOutlineCancel />} />
+                    </div>
+                )}
             </div>
         </>
     );

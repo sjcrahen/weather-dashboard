@@ -57,7 +57,7 @@ function StationForm({ data, slug, doFetch }) {
     return (
         <form id="edit-station" onSubmit={submitForm} className={'flex flex-col gap-y-4'}>
             <div className="flex flex-row gap-x-8 h-full">
-                <div className={'flex flex-col gap-y-4 flex-1'}>
+                <div className={'card flex flex-col gap-y-4 flex-1'}>
                     <Input label="Name" type="text" name="name" value={form.name} onInput={handleFieldInput} required={true} attrs={{ maxLength: '50' }} />
                     <Input label="Slug" type="text" name="slug" value={form.slug} onInput={handleFieldInput} required={true} attrs={{ maxLength: '50' }} />
                     <div className={'flex flex-row gap-x-4'}>
@@ -102,10 +102,10 @@ function StationForm({ data, slug, doFetch }) {
                 </div>
             </div>
             <div className={'mt-auto flex flex-row justify-end gap-x-4'}>
-                <button type="button" className={'font-medium'} onClick={navigateToStationList}>
+                <button type="button" className="font-medium bg-color-card-1" onClick={navigateToStationList}>
                     Cancel
                 </button>
-                <button type="submit" className={'font-medium'}>
+                <button type="submit" className="font-medium bg-color-card-1">
                     Save
                 </button>
             </div>

@@ -12,18 +12,13 @@ form#edit-station {
             }
         }
     }
-    .table-header {
-        position: static;
-    }
-
     .table-header, .table-item {
         grid-template-columns: 100px 100px auto 140px 60px;
     }
 
     .table-item {
         width: 100%;
-        background-color: var(--card-2);
-        border-top: 1px solid var(--card-1);
+        border-top: 1px solid var(--background);
 
         > * {
             margin-right: $spacer-4;

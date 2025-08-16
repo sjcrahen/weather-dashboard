@@ -31,8 +31,8 @@ function Login() {
         <Layout>
             <PageHeader label={''} />
             <MainContent>
-                <form onSubmit={handleLogin} className={'flex items-center justify-center h-screen'}>
-                    <div className={'card flex-col items-center gap-y-7 w-1/4'}>
+                <form onSubmit={handleLogin} className={'flex items-center justify-center h-full'}>
+                    <div className={'card flex-col items-center gap-y-7 w-80 h-96'}>
                         <FaCircleUser className={'size-20 c-card-1'} />
                         <div className={'relative'}>
                             <input className={'pr-10'} type="text" name="username" value={loginForm.username} onInput={handleFieldInput} placeholder="Username" />

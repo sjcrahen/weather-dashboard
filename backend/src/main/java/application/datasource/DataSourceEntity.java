@@ -19,4 +19,7 @@ public class DataSourceEntity {
     @Enumerated(EnumType.STRING)
     private DataSourceType type;
 
+    @Transient
+    private Object observation;
+
 }

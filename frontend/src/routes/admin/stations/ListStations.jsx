@@ -10,7 +10,6 @@ function ListStations() {
     const navigate = useNavigate();
     const { data, loading, error, doFetch } = useFetch();
     const token = localStorage.getItem('token');
-
     const options = useMemo(() => ({ headers: { Authorization: `Bearer ${token}` } }), [token]);
 
     useEffect(() => {
@@ -39,8 +38,8 @@ function ListStations() {
             <PageHeader label={'Stations'} />
             <MainContent data={data} loading={loading} error={error}>
                 {!loading && !error && data?.length > 0 && (
-                    <div className={'card flex flex-col table'}>
-                        <div className={'table-header grid grid-cols-6 font-bold text-lg w-full'}>
+                    <div className="card flex flex-col h-full table overflow-hidden">
+                        <div className="table-header grid grid-cols-6 font-bold text-lg w-full">
                             <span>Name</span>
                             <span>Slug</span>
                             <span>City</span>
@@ -48,7 +47,7 @@ function ListStations() {
                             <span>Latitude</span>
                             <span>Longitude</span>
                         </div>
-                        {data && renderedDataRows}
+                        <div className="table-body w-full overflow-y-auto">{data && renderedDataRows}</div>
                     </div>
                 )}
                 {!loading && !error && data?.length === 0 && <p>No stations found.</p>}
