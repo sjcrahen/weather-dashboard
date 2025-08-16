@@ -74,32 +74,34 @@ body {
         border-radius: $radius-2 $radius-2 0 0;
     }
 
-    span {
-        .table-item {
-            width: 100%;
-            background-color: var(--card-1);
-            border-top: 1px solid var(--background);
+    .table-body {
+        span {
+            .table-item {
+                width: 100%;
+                background-color: var(--card-1);
+                border-top: 1px solid var(--background);
 
-            > * {
-                margin-right: $spacer-4;
-            }
+                > * {
+                    margin-right: $spacer-4;
+                }
 
-            &:is(button) {
-                &:hover {
-                    outline: 2px solid var(--text);
-                    outline-offset: -2px;
+                &:is(button) {
+                    &:hover {
+                        outline: 2px solid var(--text);
+                        outline-offset: -2px;
+                    }
                 }
             }
-        }
 
-        &:last-of-type {
-            border-radius: 0 0 $radius-2 $radius-2;
-
-            .table-item {
+            &:last-of-type {
                 border-radius: 0 0 $radius-2 $radius-2;
-            }
-        }
 
+                .table-item {
+                    border-radius: 0 0 $radius-2 $radius-2;
+                }
+            }
+
+        }
     }
 
     select {

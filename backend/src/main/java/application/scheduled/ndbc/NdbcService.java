@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class NdbcService {
 
     private DataSourceService dataSourceService;
-    public static final String BASE_URL = "https://www.ndbc.noaa.gov/data/realtime2/";
+    private static final String BASE_URL = "https://www.ndbc.noaa.gov/data/realtime2/";
 
     @Scheduled(fixedRate = 180_000)
     public void updateNdbcDataSources() {

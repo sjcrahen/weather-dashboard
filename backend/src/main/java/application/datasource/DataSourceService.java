@@ -44,4 +44,13 @@ public class DataSourceService {
             return new ArrayList<>();
         }
     }
+
+    public List<DataSourceEntity> getByType(DataSourceType type) {
+        if (type == null) return new ArrayList<>();
+        try {
+            return dataSourceRepository.findByType(type);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
 }

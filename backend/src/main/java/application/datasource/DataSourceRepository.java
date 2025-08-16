@@ -9,4 +9,6 @@ import java.util.List;
 public interface DataSourceRepository extends JpaRepository<DataSourceEntity, Integer> {
 
     List<DataSourceEntity> findByTypeIn(List<DataSourceType> types);
+
+    List<DataSourceEntity> findByType(DataSourceType type);
 }

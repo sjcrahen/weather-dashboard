@@ -1,16 +1,20 @@
 spring:
-    datasource:
-        url: jdbc:postgresql://localhost:5432/${DB_NAME}
-        username: ${DB_USER}
-        password: ${DB_PASSWORD}
-    jpa:
-        hibernate:
-            ddl-auto: none
-        show-sql: true
-    flyway:
-        enabled: true
-        locations: classpath:db/migration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
 security:
-    jwt:
-        secret: ${JWT_SECRET}
-        expiration: 3600000
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration: 3600000
+api:
+  weather:
+    base-url: "http://api.weatherapi.com/v1/forecast.json?key="
+    key: ${WX_API_KEY}
