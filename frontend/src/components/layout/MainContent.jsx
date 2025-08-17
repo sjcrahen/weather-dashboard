@@ -1,11 +1,9 @@
 function MainContent({ data, loading, error, children }) {
     return (
-        <main className="h-full flex overflow-hidden">
-            <div className="flex-col flex-1">
-                {loading && !data && <p className={'loading'}>Loading...</p>}
-                {error && !data && <p className={'error'}>Error: {error}</p>}
-                {children}
-            </div>
+        <main className="h-full overflow-auto">
+            {loading && !data && <p className={'loading'}>Loading...</p>}
+            {error && !data && <p className={'error'}>Error: {error}</p>}
+            {children}
         </main>
     );
 }

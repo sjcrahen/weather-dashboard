@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext(null);
 
-const isValidToken = token => {
+const isValidToken = (token) => {
     try {
         const decoded = jwtDecode(token);
         return decoded.exp * 1000 > Date.now();
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
         }
     }, [token, logout]);
 
-    const login = useCallback(async loginForm => {
+    const login = useCallback(async (loginForm) => {
         try {
             const response = await fetch('http://localhost:8080/api/auth/login', {
                 method: 'POST',

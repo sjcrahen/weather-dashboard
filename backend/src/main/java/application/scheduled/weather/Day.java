@@ -14,4 +14,6 @@ public class Day {
     private int daily_chance_of_rain;
     private int daily_chance_of_snow;
     private int chance_of_precip;
+    private int avghumidity;
+    private int avgvis_miles;
 }

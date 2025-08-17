@@ -45,6 +45,16 @@ body {
         display: flex;
         container-type: inline-size;
 
+        &.p-sm {
+            display: inline-flex;
+            padding: 0.3rem $spacer-1;
+        }
+
+        &.fit {
+            container-type: unset;
+            width: fit-content;
+        }
+
         svg {
             color: var(--card-2);
         }

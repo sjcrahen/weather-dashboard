@@ -1,7 +1,9 @@
 import { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 function useFetch() {
+    const { logout } = useAuth();
     const { navigate } = useNavigate();
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(null);
@@ -26,8 +28,10 @@ function useFetch() {
             try {
                 const res = await fetch(url, { ...options, signal });
                 if (res.status === 403) {
-                    navigate('/login');
+                    logout();
                     setData(null);
+                    navigate('/login');
+                    return;
                 }
                 if (!res.ok) throw new Error(`Error: ${res.status}`);
                 const json = await res.json();
