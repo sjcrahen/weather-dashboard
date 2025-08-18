@@ -9,6 +9,7 @@ import WindObservation from '../components/dashboard/WindObservation.jsx';
 import { titleCase } from '../utils/functions.js';
 import CurrentWeather from '../components/dashboard/CurrentWeather.jsx';
 import Forecast from '../components/dashboard/Forecast.jsx';
+import TideChart from '../components/dashboard/TideChart.jsx';
 
 function Dashboard() {
     const { slug } = useParams();
@@ -42,6 +43,11 @@ function Dashboard() {
                     {ds.type === 'WEATHER' && (
                         <div className="dashboard card flex flex-col col-span-12 lg:col-span-8 xl:col-span-6 2xl:col-span-5 sm:row-span-6">
                             <Forecast ds={ds} />
+                        </div>
+                    )}
+                    {ds.type === 'TIDE' && (
+                        <div className="dashboard card flex flex-col col-span-12 lg:col-span-8 xl:col-span-6 2xl:col-span-5 sm:row-span-6">
+                            <TideChart ds={ds} />
                         </div>
                     )}
                 </React.Fragment>
