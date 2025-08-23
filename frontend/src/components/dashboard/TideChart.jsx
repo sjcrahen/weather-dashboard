@@ -9,6 +9,7 @@ export default function TideChart({ ds }) {
         Height: parseFloat(d.v),
     }));
     const extrema = findLocalExtrema();
+    const extremaCoords = new Map();
 
     function getTicks() {
         if (!parsed) return;
@@ -26,22 +27,63 @@ export default function TideChart({ ds }) {
         const extrema = [];
         if (!parsed || parsed.length < 3) return extrema;
 
-        for (let i = 1; i < parsed.length - 1; i++) {
+        let i = 1;
+        while (i < parsed.length - 1) {
             const prev = parsed[i - 1].Height;
             const curr = parsed[i].Height;
-            const next = parsed[i + 1].Height;
+
+            // Look ahead to handle plateaus
+            let j = i;
+            while (j + 1 < parsed.length && parsed[j + 1].Height === curr) j++;
+            const next = parsed[j + 1] ? parsed[j + 1].Height : curr;
 
             if (curr > prev && curr > next) {
                 extrema.push({ ...parsed[i], type: 'max' });
             } else if (curr < prev && curr < next) {
                 extrema.push({ ...parsed[i], type: 'min' });
             }
+
+            // Skip over plateau
+            i = j + 1;
         }
+
         return extrema;
     }
 
     // TODO: adjust for timezone
     const now = new Date();
+
+    const CustomTooltip = ({ active, label }) => {
+        if (!active) return null;
+
+        const nearest = extrema.reduce((prev, curr) => (Math.abs(curr.time.getTime() - label) < Math.abs(prev.time.getTime() - label) ? curr : prev));
+        const coords = extremaCoords.get(nearest.time.getTime());
+        if (!coords) return null;
+
+        return (
+            <div
+                style={{
+                    position: 'absolute',
+                    pointerEvents: 'none',
+                    left: `${coords.cx}px`,
+                    top: `${coords.cy + (nearest.type === 'max' ? 70 : -10)}px`,
+                    backgroundColor: 'var(--background)',
+                    color: 'var(--text)',
+                    padding: '4px 8px',
+                    border: '1px solid var(--card-2)',
+                    borderRadius: '8px',
+                    boxShadow: '1px 1px 3px #222',
+                    transform: 'translate(-50%, -100%)',
+                    whiteSpace: 'nowrap',
+                }}
+            >
+                <div className="text-sm">{`${format(nearest.time, 'd MMM HH:mm')} (LST/LDT)`}</div>
+                <div className="text-lg">
+                    {nearest.type === 'max' ? 'High' : 'Low'}: <span className="font-medium">{nearest.Height.toFixed(2)} ft</span>
+                </div>
+            </div>
+        );
+    };
 
     return (
         <>
@@ -56,9 +98,9 @@ export default function TideChart({ ds }) {
                         axisLine={{ stroke: 'var(--text)' }}
                         tickLine={{ stroke: 'var(--text)' }}
                         dataKey="time"
-                        tickFormatter={(time) => format(time, 'HH:mm')}
+                        tickFormatter={(time) => format(time, 'H:mm')}
                         type="number"
-                        domain={['auto', 'auto']}
+                        domain={[Math.min(...parsed.map((d) => d.time.getTime())), Math.max(...parsed.map((d) => d.time.getTime()))]}
                         scale="time"
                         interval={0}
                         ticks={getTicks()}
@@ -69,31 +111,23 @@ export default function TideChart({ ds }) {
                         tickLine={{ stroke: 'var(--text)' }}
                         label={{ value: 'Height in feet (MLLW)', angle: -90, position: 'insideLeft', dy: 80, style: { fill: 'var(--text)' } }}
                     />
-                    <Tooltip
-                        contentStyle={{
-                            backgroundColor: 'var(--background)',
-                            color: 'var(--text)',
-                            padding: '4px 8px',
-                            border: '1px solid var(--card-2)',
-                            borderRadius: '8px',
-                            boxShadow: '1px 1px 3px #222',
-                        }}
-                        labelFormatter={(time) => format(time, 'MMM d, HH:mm')}
-                        formatter={(value) => `${value.toFixed(2)} ft`}
-                    />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Line dataKey="Height" stroke="var(--links)" strokeWidth={2} dot={false} activeDot={false} />
                     <Line
+                        data={extrema}
                         type="monotone"
                         dataKey="Height"
-                        stroke="var(--links)"
+                        stroke="transparent"
                         strokeWidth={2}
-                        dot={false}
+                        dot={{ r: 5 }}
                         activeDot={(props) => {
                             const { cx, cy, payload } = props;
+                            extremaCoords.set(payload.time.getTime(), { cx, cy });
                             const isExtrema = extrema.some((e) => e.time.getTime() === payload.time.getTime());
                             if (isExtrema) {
                                 return <circle cx={cx} cy={cy} r={8} fill="var(--links)" />;
                             }
-                            return <circle cx={cx} cy={cy} r={4} fill="var(--links)" />;
+                            return null;
                         }}
                     />
                     {extrema &&
@@ -102,7 +136,12 @@ export default function TideChart({ ds }) {
                                 <Label value={`${point.Height.toFixed(2)}`} position={point.type === 'max' ? 'top' : 'bottom'} fill="var(--text)" fontSize={12} />
                             </ReferenceDot>
                         ))}
-                    <ReferenceLine x={now.getTime()} stroke="red" strokeDasharray="3 3" label={{ value: 'Now', fill: 'var(--text)' }} />
+                    <ReferenceLine
+                        x={now.getTime()}
+                        stroke="red"
+                        strokeDasharray="3 3"
+                        label={{ value: 'Current Time (LST/LDT)', fill: 'red', angle: 90, dy: -40, dx: 10, style: { fontSize: 13 } }}
+                    />
                 </LineChart>
             </ResponsiveContainer>
         </>
