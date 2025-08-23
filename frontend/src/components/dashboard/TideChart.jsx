@@ -86,9 +86,10 @@ export default function TideChart({ ds }) {
     };
 
     return (
-        <>
-            <div className="mb-1 font-medium flex flex-row items-center">
-                <h3 className="text-xl">Tide Predictions</h3>
+        <div className="dashboard card flex flex-col col-span-12 xl:col-span-6 2xl:col-span-6 sm:row-span-8 min-h-">
+            <div className="mb-1 flex flex-row items-baseline gap-x-2">
+                <h3 className="text-xl font-medium">Tide Predictions</h3>
+                <span>- {ds.name}</span>
             </div>
             {parsed && parsed.length && (
                 <ResponsiveContainer width="100%" height="100%">
@@ -141,11 +142,11 @@ export default function TideChart({ ds }) {
                             x={now.getTime()}
                             stroke="red"
                             strokeDasharray="3 3"
-                            label={{ value: 'Current Time (LST/LDT)', fill: 'red', angle: 90, dy: -40, dx: 10, style: { fontSize: 13 } }}
+                            label={{ value: 'Current Time (LST/LDT)', fill: 'red', angle: 90, dy: -15, dx: 10, style: { fontSize: 13 } }}
                         />
                     </LineChart>
                 </ResponsiveContainer>
             )}
-        </>
+        </div>
     );
 }

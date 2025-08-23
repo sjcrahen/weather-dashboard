@@ -46,8 +46,11 @@ body {
         container-type: inline-size;
 
         &.p-sm {
-            display: inline-flex;
-            padding: 0.3rem $spacer-1;
+            padding: $spacer-1;
+        }
+
+        &.no-pad {
+            padding: 0;
         }
 
         &.fit {
@@ -55,8 +58,20 @@ body {
             width: fit-content;
         }
 
+        @media (min-width: 768px) and (max-width: 1023px) {
+            &.md\:hidden {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1280px) and (max-width: 1535px) {
+            &.xl\:hidden {
+                display: none;
+            }
+        }
+
         svg {
-            color: var(--card-2);
+            color: var(--card-3);
         }
 
         .card {
@@ -184,13 +199,11 @@ body {
     }
 
     ::-webkit-scrollbar-track {
-        //border-radius: $radius-2;
         background: var(--background-1);
     }
 
     ::-webkit-scrollbar-thumb {
         background: var(--card-2);
-        //border-radius: $radius-2;
     }
 
     div.tooltip {
@@ -228,5 +241,9 @@ body {
             top: 50%;
             left: 50%;
         }
+    }
+
+    iframe {
+        border-radius: $radius-2;
     }
 }

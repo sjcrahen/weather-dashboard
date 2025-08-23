@@ -5,16 +5,17 @@ function CurrentWeather({ ds }) {
     const { name, observation } = ds;
     const lastUpdated = new Date(observation.current.last_updated.replace(' ', 'T'));
     return (
-        <>
-            <div className="flex-row items-center gap-x-1 font-medium">
-                <h3 className="text-xl">Current Conditions</h3>
+        <div className="dashboard wind-observation card flex flex-col col-span-12 md:col-span-6 lg:col-span-5 xl:col-span-4 2xl:col-span-3 sm:row-span-10">
+            <div className="flex-row items-center gap-x-1">
+                <h3 className="text-xl font-medium">Current Conditions</h3>
+                <p className="">{observation.current.last_updated} (LST/LDT)</p>
             </div>
-            <div className="flex flex-row w-full justify-center pt-8">
+            <div className="flex flex-row w-full justify-center pt-12">
                 <div className="grow flex flex-col items-center pt-4">
                     <img className="w-32" alt={observation.current.condition.text} src={observation.current.condition.icon} />
                 </div>
                 <div className="flex flex-col justify-between">
-                    <span className="text-5xl mb-8 font-medium">{observation.current.temp_f}&deg;F</span>
+                    <span className="text-5xl mb-14 font-medium">{observation.current.temp_f}&deg;F</span>
                     <div className="flex flex-col">
                         <span className="text-xl">{observation.current.condition.text}</span>
                         <span className="text-sm">Feels like {observation.current.feelslike_f}&deg;</span>
@@ -27,7 +28,7 @@ function CurrentWeather({ ds }) {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 
