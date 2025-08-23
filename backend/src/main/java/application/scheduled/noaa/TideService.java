@@ -27,7 +27,7 @@ public class TideService {
     @Scheduled(fixedRate = 21_600_000)
     public void updateTideDataSources() {
         List<DataSourceEntity> dataSources = dataSourceService.getByType(DataSourceType.TIDE);
-        String yesterday = LocalDateTime.now().minusHours(12).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String yesterday = LocalDateTime.now().minusHours(6).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         for (DataSourceEntity ds : dataSources) {
             try {
                 TideData tideData = restTemplate.getForObject(String.format("%s%s&begin_date=%s", BASE_URL, ds.getSourceIdentifier(), yesterday), TideData.class);

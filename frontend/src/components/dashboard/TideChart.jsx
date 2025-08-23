@@ -90,60 +90,62 @@ export default function TideChart({ ds }) {
             <div className="mb-1 font-medium flex flex-row items-center">
                 <h3 className="text-xl">Tide Predictions</h3>
             </div>
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart width={600} height={300} data={parsed} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                    <CartesianGrid stroke="var(--card-3)" strokeDasharray="3 3" />
-                    <XAxis
-                        tick={{ fill: 'var(--text)' }}
-                        axisLine={{ stroke: 'var(--text)' }}
-                        tickLine={{ stroke: 'var(--text)' }}
-                        dataKey="time"
-                        tickFormatter={(time) => format(time, 'H:mm')}
-                        type="number"
-                        domain={[Math.min(...parsed.map((d) => d.time.getTime())), Math.max(...parsed.map((d) => d.time.getTime()))]}
-                        scale="time"
-                        interval={0}
-                        ticks={getTicks()}
-                    />
-                    <YAxis
-                        tick={{ fill: 'var(--text)' }}
-                        axisLine={{ stroke: 'var(--text)' }}
-                        tickLine={{ stroke: 'var(--text)' }}
-                        label={{ value: 'Height in feet (MLLW)', angle: -90, position: 'insideLeft', dy: 80, style: { fill: 'var(--text)' } }}
-                    />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Line dataKey="Height" stroke="var(--links)" strokeWidth={2} dot={false} activeDot={false} />
-                    <Line
-                        data={extrema}
-                        type="monotone"
-                        dataKey="Height"
-                        stroke="transparent"
-                        strokeWidth={2}
-                        dot={{ r: 5 }}
-                        activeDot={(props) => {
-                            const { cx, cy, payload } = props;
-                            extremaCoords.set(payload.time.getTime(), { cx, cy });
-                            const isExtrema = extrema.some((e) => e.time.getTime() === payload.time.getTime());
-                            if (isExtrema) {
-                                return <circle cx={cx} cy={cy} r={8} fill="var(--links)" />;
-                            }
-                            return null;
-                        }}
-                    />
-                    {extrema &&
-                        extrema.map((point, idx) => (
-                            <ReferenceDot key={idx} x={point.time.getTime()} y={point.Height} r={4} fill="var(--text)">
-                                <Label value={`${point.Height.toFixed(2)}`} position={point.type === 'max' ? 'top' : 'bottom'} fill="var(--text)" fontSize={12} />
-                            </ReferenceDot>
-                        ))}
-                    <ReferenceLine
-                        x={now.getTime()}
-                        stroke="red"
-                        strokeDasharray="3 3"
-                        label={{ value: 'Current Time (LST/LDT)', fill: 'red', angle: 90, dy: -40, dx: 10, style: { fontSize: 13 } }}
-                    />
-                </LineChart>
-            </ResponsiveContainer>
+            {parsed && parsed.length && (
+                <ResponsiveContainer width="100%" height="100%">
+                    <LineChart width={600} height={300} data={parsed} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                        <CartesianGrid stroke="var(--card-3)" strokeDasharray="3 3" />
+                        <XAxis
+                            tick={{ fill: 'var(--text)' }}
+                            axisLine={{ stroke: 'var(--text)' }}
+                            tickLine={{ stroke: 'var(--text)' }}
+                            dataKey="time"
+                            tickFormatter={(time) => format(time, 'HH:mm')}
+                            type="number"
+                            domain={[Math.min(...parsed.map((d) => d.time.getTime())), Math.max(...parsed.map((d) => d.time.getTime()))]}
+                            scale="time"
+                            interval={0}
+                            ticks={getTicks()}
+                        />
+                        <YAxis
+                            tick={{ fill: 'var(--text)' }}
+                            axisLine={{ stroke: 'var(--text)' }}
+                            tickLine={{ stroke: 'var(--text)' }}
+                            label={{ value: 'Height in feet (MLLW)', angle: -90, position: 'insideLeft', dy: 80, style: { fill: 'var(--text)' } }}
+                        />
+                        <Tooltip content={<CustomTooltip />} />
+                        <Line dataKey="Height" stroke="var(--links)" strokeWidth={2} dot={false} activeDot={false} />
+                        <Line
+                            data={extrema}
+                            type="monotone"
+                            dataKey="Height"
+                            stroke="transparent"
+                            strokeWidth={2}
+                            dot={{ r: 5 }}
+                            activeDot={(props) => {
+                                const { cx, cy, payload } = props;
+                                extremaCoords.set(payload.time.getTime(), { cx, cy });
+                                const isExtrema = extrema.some((e) => e.time.getTime() === payload.time.getTime());
+                                if (isExtrema) {
+                                    return <circle cx={cx} cy={cy} r={8} fill="var(--links)" />;
+                                }
+                                return null;
+                            }}
+                        />
+                        {extrema &&
+                            extrema.map((point, idx) => (
+                                <ReferenceDot key={idx} x={point.time.getTime()} y={point.Height} r={4} fill="var(--text)">
+                                    <Label value={`${point.Height.toFixed(2)}`} position={point.type === 'max' ? 'top' : 'bottom'} fill="var(--text)" fontSize={12} />
+                                </ReferenceDot>
+                            ))}
+                        <ReferenceLine
+                            x={now.getTime()}
+                            stroke="red"
+                            strokeDasharray="3 3"
+                            label={{ value: 'Current Time (LST/LDT)', fill: 'red', angle: 90, dy: -40, dx: 10, style: { fontSize: 13 } }}
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
+            )}
         </>
     );
 }
