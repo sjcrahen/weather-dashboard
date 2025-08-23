@@ -93,7 +93,7 @@ export default function TideChart({ ds }) {
             </div>
             {parsed && parsed.length && (
                 <ResponsiveContainer width="100%" height="100%">
-                    <LineChart width={600} height={300} data={parsed} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                    <LineChart width={600} height={300} data={parsed} margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                         <CartesianGrid stroke="var(--card-3)" strokeDasharray="3 3" />
                         <XAxis
                             tick={{ fill: 'var(--text)' }}

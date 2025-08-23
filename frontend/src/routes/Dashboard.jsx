@@ -58,13 +58,13 @@ function Dashboard() {
         <Layout>
             <PageHeader label={headerLabel || 'Dashboard'} />
             <MainContent data={data} loading={loading} error={error}>
-                <div className="grid grid-cols-12 gap-4 auto-rows-auto sm:auto-rows-[25px]">
+                <div className="grid grid-cols-12 gap-4 auto-rows-auto sm:auto-rows-[24px]">
                     {!loading && !error && data?.length > 0 && renderedWeatherObservations}
                     {!loading && !error && data?.length > 0 && renderedForecastObservations}
-                    <div className="card no-pad radar col-span-12 xl:col-span-4 2xl:col-span-5 row-span-10">
+                    <div className="card no-pad radar col-span-12 xl:col-span-4 2xl:col-span-5 row-span-11">
                         <iframe
                             width="1280"
-                            height="394"
+                            height="424"
                             src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=in&metricTemp=°F&metricWind=kt&zoom=8&overlay=wind&product=ecmwf&level=surface&lat=43.429&lon=-124.557&message=true"
                             frameBorder="0"
                         ></iframe>
