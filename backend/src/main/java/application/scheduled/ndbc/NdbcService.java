@@ -149,7 +149,7 @@ public class NdbcService {
         ob.setType(DataSourceType.WIND);
         try {
             double windGust = Double.parseDouble(data[7]);
-            if (windGust >= 0) ob.setWindSpeed((int) Math.round(windGust * 1.94384));
+            if (windGust >= 0) ob.setWindGust((int) Math.round(windGust * 1.94384));
             else ob.setWindGust(-1);
         } catch (NumberFormatException ex) {
             ob.setWindGust(-1);

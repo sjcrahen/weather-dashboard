@@ -1,3 +1,5 @@
+@use "sass-variables" as *;
+
 .dashboard.card {
     svg {
         fill: var(--text);
@@ -6,8 +8,8 @@
     .rotatable-content {
         width: 42px;
         height: 42px;
-        border: 1px solid var(--text);
-        border-radius: 50%;
+        //border: 1px solid var(--text);
+        //border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -17,10 +19,13 @@
         max-height: 82px;
     }
 
-    //&.tide-chart {
-    //    flex: 1 1 600px;
-    //    min-width: 0;
-    //    max-width: 800px
-    //}
+    a {
+        border-radius: $radius-2;
+        cursor: pointer;
 
+        &:hover {
+            outline: 2px solid var(--text);
+            outline-offset: -2px;
+        }
+    }
 }

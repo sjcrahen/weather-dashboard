@@ -38,13 +38,12 @@ public class DashboardController {
     }
 
     @GetMapping(value = "/{slug:^[a-z0-9]+(?:-[a-z0-9]+)*$}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<DataSourceEntity>> getObservations(@PathVariable String slug) {
+    public ResponseEntity<StationEntity> getObservations(@PathVariable String slug) {
         StationEntity station = stationService.getStationBySlug(slug);
         if (station == null) return ResponseEntity.notFound().build();
-        List<DataSourceEntity> dataSources = station.getDataSources();
-        for (var ds : dataSources) {
+        for (var ds : station.getDataSources()) {
             ds.setObservation(Cache.SNAPSHOTS.get(ds.getId()));
         }
-        return ResponseEntity.ok(dataSources);
+        return ResponseEntity.ok(station);
     }
 }

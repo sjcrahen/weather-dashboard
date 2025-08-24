@@ -22,7 +22,7 @@ public class TideService {
 
     private final RestTemplate restTemplate;
     private DataSourceService dataSourceService;
-    private static final String BASE_URL = "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?range=48&product=predictions&datum=mllw&units=english&time_zone=lst_ldt&format=json&station=";
+    private static final String BASE_URL = "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?range=48&interval=hilo&product=predictions&datum=mllw&units=english&time_zone=lst_ldt&format=json&station=";
 
     @Scheduled(fixedRate = 21_600_000)
     public void updateTideDataSources() {

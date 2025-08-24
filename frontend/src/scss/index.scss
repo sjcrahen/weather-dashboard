@@ -233,16 +233,6 @@ body {
         }
     }
 
-    .rotatable-content {
-        position: relative;
-
-        *:first-child {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-        }
-    }
-
     iframe {
         border-radius: $radius-2;
     }
