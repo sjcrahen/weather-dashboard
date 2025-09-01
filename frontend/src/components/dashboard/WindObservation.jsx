@@ -1,7 +1,8 @@
+import React from 'react';
 import { BsArrowDownCircle, BsWind } from 'react-icons/bs';
 import TooltipWrapper from '../TooltipWrapper.jsx';
 
-function WindObservation({ ds }) {
+const WindObservation = React.memo(function WindObservation({ ds }) {
     const { name, sourceIdentifier } = ds;
     const { dateTimeString, expired, windSpeed, windGust, windDirection } = ds.observation;
 
@@ -20,7 +21,6 @@ function WindObservation({ ds }) {
                         <div className="flex flex-row gap-x-5 items-center">
                             <div className="flex flex-row gap-x-3 items-baseline text-xl font-medium">
                                 <span>{windSpeed}kts</span>
-                                {/*{windGust != null && windGust > 0 && <span className="text-lg font-normal">(gst {windGust}kts)</span>}*/}
                             </div>
                             {windDirection != null && (
                                 <TooltipWrapper title={`${windDirection}\u00b0T`}>
@@ -35,6 +35,6 @@ function WindObservation({ ds }) {
             </TooltipWrapper>
         </a>
     );
-}
+});
 
 export default WindObservation;

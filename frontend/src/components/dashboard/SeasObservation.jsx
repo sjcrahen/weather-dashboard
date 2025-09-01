@@ -1,8 +1,9 @@
+import React from 'react';
 import { PiWaves } from 'react-icons/pi';
 import TooltipWrapper from '../TooltipWrapper.jsx';
 import { BsArrowDownCircle } from 'react-icons/bs';
 
-function SeasObservation({ ds }) {
+const SeasObservation = React.memo(function SeasObservation({ ds }) {
     const { name, sourceIdentifier } = ds;
     const { dateTimeString, expired, waveHeight, dominantPeriod, waveDirection } = ds.observation;
 
@@ -36,6 +37,6 @@ function SeasObservation({ ds }) {
             </TooltipWrapper>
         </a>
     );
-}
+});
 
 export default SeasObservation;

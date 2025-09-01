@@ -3,8 +3,9 @@ import { BsDropletHalf, BsWind } from 'react-icons/bs';
 import { WiBarometer } from 'react-icons/wi';
 import { MdOutlineVisibility } from 'react-icons/md';
 import { PiSun } from 'react-icons/pi';
+import React from 'react';
 
-function CurrentWeather({ ds }) {
+const CurrentWeather = React.memo(function CurrentWeather({ ds }) {
     const { observation } = ds;
     const forecast = observation.forecast.forecastday[0];
     return (
@@ -85,6 +86,6 @@ function CurrentWeather({ ds }) {
             </div>
         </div>
     );
-}
+});
 
 export default CurrentWeather;

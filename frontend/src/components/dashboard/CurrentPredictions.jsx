@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { parse, format } from "date-fns";
 import { nowInTimeZone } from '../../utils/functions.js';
 
-function CurrentPredictions({ station, ds }) {
+const CurrentPredictions = React.memo(function CurrentPredictions({ station, ds }) {
     const targetRef = useRef(null);
     let predictions = ds?.observation?.current_predictions?.cp;
     let lastBeforeNow = null;
@@ -52,6 +52,6 @@ function CurrentPredictions({ station, ds }) {
             {renderedCurrentPredictions}
         </div>
     );
-};
+});
 
 export default CurrentPredictions;

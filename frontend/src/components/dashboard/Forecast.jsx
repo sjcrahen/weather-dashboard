@@ -1,8 +1,9 @@
+import React from 'react';
 import { CiTempHigh } from 'react-icons/ci';
 import { BsWind } from 'react-icons/bs';
 import { MdOutlineVisibility } from 'react-icons/md';
 
-function Forecast({ ds }) {
+const Forecast = React.memo(function Forecast({ ds }) {
     const { observation } = ds;
     const forecast = observation.forecast.forecastday[0];
 
@@ -62,6 +63,6 @@ function Forecast({ ds }) {
             </div>
         </>
     );
-}
+});
 
 export default Forecast;

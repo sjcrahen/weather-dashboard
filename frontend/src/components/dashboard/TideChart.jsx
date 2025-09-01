@@ -1,10 +1,10 @@
-import { useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { CartesianGrid, Label, Line, LineChart, ReferenceDot, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { format, parseISO } from 'date-fns';
 import dayjs from 'dayjs';
 import { nowInTimeZone } from '../../utils/functions.js';
 
-export default function TideChart({ station, ds }) {
+const TideChart = React.memo(function TideChart({ station, ds }) {
     const now = nowInTimeZone(station.timezone);
 
     // Your dataset is already extrema points
@@ -196,4 +196,6 @@ export default function TideChart({ station, ds }) {
             )}
         </>
     );
-}
+});
+
+export default TideChart;
