@@ -15,4 +15,5 @@ public class CurrentWeather {
     private int feelslike_f;
     private String last_updated;
     private int pressure_mb;
+    private int humidity;
 }

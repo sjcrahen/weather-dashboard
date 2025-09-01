@@ -74,7 +74,7 @@ export default function TideChart({ station, ds }) {
         const coords = extremaCoords.current.get(nearest.time.getTime());
         if (!coords) return null;
 
-        const tooltipWidth = 160;
+        const tooltipWidth = 190;
         const container = document.querySelector('.recharts-wrapper');
         const containerRect = container?.getBoundingClientRect();
         let left = coords.cx;
@@ -112,7 +112,7 @@ export default function TideChart({ station, ds }) {
     };
 
     return (
-        <div className="dashboard card flex flex-col col-span-12 xl:col-span-6 2xl:col-span-6 sm:row-span-8">
+        <>
             <div className="mb-1 flex flex-row items-baseline gap-x-2">
                 <h3 className="text-xl font-medium">Tide Predictions</h3>
                 <span>- {ds.name}</span>
@@ -120,7 +120,7 @@ export default function TideChart({ station, ds }) {
 
             {parsed.length > 0 && (
                 <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={curve} margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
+                    <LineChart data={curve} margin={{ top: 20, right: 10, left: 0, bottom: 0 }}>
                         <CartesianGrid stroke="var(--card-3)" strokeDasharray="3 3" />
 
                         <XAxis
@@ -168,7 +168,9 @@ export default function TideChart({ station, ds }) {
 
                         {parsed.map((point, idx) => (
                             <ReferenceDot key={idx} x={point.time.getTime()} y={point.Height} r={4} fill="var(--text)">
-                                <Label value={point.Height.toFixed(2)} position={point.type === 'max' ? 'top' : 'bottom'} fill="var(--text)" fontSize={12} />
+                                {idx > 0 && idx < parsed.length - 1 && (
+                                    <Label value={point.Height.toFixed(2)} position={point.type === 'max' ? 'top' : 'bottom'} fill="var(--text)" fontSize={12} />
+                                )}
                             </ReferenceDot>
                         ))}
 
@@ -184,7 +186,7 @@ export default function TideChart({ station, ds }) {
                                 })} (LST/LDT)`,
                                 fill: 'red',
                                 angle: 90,
-                                dy: -40,
+                                dy: -35,
                                 dx: 10,
                                 style: { fontSize: 13 },
                             }}
@@ -192,6 +194,6 @@ export default function TideChart({ station, ds }) {
                     </LineChart>
                 </ResponsiveContainer>
             )}
-        </div>
+        </>
     );
 }

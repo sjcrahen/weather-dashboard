@@ -8,24 +8,24 @@ function WindObservation({ ds }) {
     return (
         <a href={`https://www.ndbc.noaa.gov/station_page.php?station=${sourceIdentifier}`} target="_blank">
             <TooltipWrapper title="Click to view NDBC site">
-                <div className="dashboard card flex flex-row justify-between">
+                <div className="dashboard card p-sm flex flex-row justify-between">
                     <div className="flex flex-row items-center">
-                        <BsWind className="text-2xl mr-2" />
-                        <h3 className="text-xl">
+                        <BsWind className="text-xl mr-2" />
+                        <h3 className="text-md">
                             {sourceIdentifier} - {name}
                         </h3>
                     </div>
                     {expired && <div className="flex flex-row items-center text-xl">No recent observations</div>}
                     {!expired && windSpeed != null && (
                         <div className="flex flex-row gap-x-5 items-center">
-                            <div className="flex flex-row gap-x-3 items-baseline text-2xl font-medium">
+                            <div className="flex flex-row gap-x-3 items-baseline text-xl font-medium">
                                 <span>{windSpeed}kts</span>
-                                {windGust != null && windGust > 0 && <span className="text-xl font-normal">(gst {windGust}kts)</span>}
+                                {/*{windGust != null && windGust > 0 && <span className="text-lg font-normal">(gst {windGust}kts)</span>}*/}
                             </div>
                             {windDirection != null && (
                                 <TooltipWrapper title={`${windDirection}\u00b0T`}>
                                     <span className="rotatable-content">
-                                        <BsArrowDownCircle className="text-5xl" style={{ transform: `rotate(${windDirection}deg)` }} />
+                                        <BsArrowDownCircle className="text-3xl" style={{ transform: `rotate(${windDirection}deg)` }} />
                                     </span>
                                 </TooltipWrapper>
                             )}

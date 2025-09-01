@@ -8,15 +8,13 @@
     .rotatable-content {
         width: 42px;
         height: 42px;
-        //border: 1px solid var(--text);
-        //border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
     .seas-observation, .wind-observation {
-        max-height: 82px;
+        max-height: 52px;
     }
 
     a {
@@ -26,6 +24,18 @@
         &:hover {
             outline: 2px solid var(--text);
             outline-offset: -2px;
+        }
+    }
+
+    .current-predictions {
+        .border-bottom {
+            padding: 5px 0;
+            border-bottom: 1px solid var(--card-3);
+            scroll-margin-top: -56px;
+            &:first-of-type {
+                border-bottom-width: 2px;
+                background-color: var(--card-1);
+            }
         }
     }
 }

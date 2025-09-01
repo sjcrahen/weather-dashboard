@@ -98,7 +98,7 @@ function StationForm({ data, slug, doFetch }) {
                     </div>
                 </div>
                 <div className="w-2/3 flex flex-col flex1">
-                    <StationDataSourcesList stationDataSources={form.dataSources} setForm={setForm} />
+                    {form.dataSources.length > 0 && <StationDataSourcesList stationDataSources={form.dataSources} setForm={setForm} />}
                 </div>
             </div>
             <div className={'mt-auto flex flex-row justify-end gap-x-4'}>

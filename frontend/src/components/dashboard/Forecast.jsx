@@ -7,7 +7,7 @@ function Forecast({ ds }) {
     const forecast = observation.forecast.forecastday[0];
 
     return (
-        <div className="dashboard card flex flex-col col-span-12 md:col-span-6 lg:col-span-7 xl:col-span-4 2xl:col-span-4 sm:row-span-11">
+        <>
             <div className="mb-4 flex flex-row items-baseline gap-x-2">
                 <h3 className="text-xl font-medium">Today's Forecast</h3>
                 <span className="text-md">- {ds.name}</span>
@@ -60,7 +60,7 @@ function Forecast({ ds }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

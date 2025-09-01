@@ -5,7 +5,7 @@ function Layout({ children }) {
     const { isAuthenticated } = useAuth();
 
     return (
-        <div className={'h-screen flex flex-row p-8 gap-x-8'}>
+        <div className={'h-screen flex flex-row p-8 pr-0 gap-x-8'}>
             {isAuthenticated && <LeftNav />}
             <section className={'w-full flex flex-col gap-y-4'}>{children}</section>
         </div>

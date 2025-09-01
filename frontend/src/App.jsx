@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Login from './routes/Login.jsx';
 import ListStations from './routes/admin/stations/ListStations.jsx';
@@ -13,8 +13,7 @@ function App() {
         <AuthProvider>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/" element={<Navigate to="/dashboard/barnegat-light" replace />} />
                     <Route path="/dashboard/:slug" element={<Dashboard />} />
                     <Route path="/login" element={<Login />} />
                     <Route element={<ProtectedRoute />}>
