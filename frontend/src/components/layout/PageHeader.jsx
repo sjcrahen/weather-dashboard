@@ -42,9 +42,9 @@ function PageHeader({ label }) {
     };
 
     return (
-        <header className="flex flex-row justify-between w-full items-baseline pr-8">
+        <header className="flex flex-row justify-between w-full items-baseline pr-8 flex-wrap gap-4">
             <h1 className="text-4xl font-medium">{label}</h1>
-            <div className="flex flex-row gap-10">
+            <div className="flex flex-row gap-x-10 gap-y-4 flex-wrap">
                 <select className="w-72" value={selectedStation} name="datasource" onChange={selectNewStation}>
                     <option value="" disabled>
                         Select a station

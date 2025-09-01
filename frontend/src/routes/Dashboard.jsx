@@ -57,10 +57,10 @@ function Dashboard() {
             <PageHeader label={headerLabel || 'Dashboard'} />
             <main className="h-full overflow-auto pr-8">
                 <div className="flex flex-col gap-4">
-                    <div className="flex flex-row gap-4 w-full">
-                        <div className="flex flex-col gap-y-4 col-span-6 grow max-w-5xl">
-                            <div className="flex flex-row gap-4 w-full">
-                                <div className="dashboard ndbc-observation card flex flex-col gap-y-3 grow h-56">
+                    <div className="flex flex-row gap-4 w-full flex-wrap">
+                        <div className="flex flex-col gap-y-4 grow w-full xl:max-w-4xl 3xl:max-w-5xl">
+                            <div className="flex flex-row gap-4 w-full flex-wrap">
+                                <div className="dashboard ndbc-observation card flex flex-col gap-y-3 grow h-56 w-full lg:w-fit">
                                     {ndbcObservations.map(ds =>
                                         ds.type === 'SEAS' ? (
                                             <SeasObservation key={ds.id} ds={ds} />
@@ -70,14 +70,14 @@ function Dashboard() {
                                     )}
                                 </div>
                                 {currentPredictions.length > 0 && (
-                                    <div className="dashboard card grow flex flex-col gap-y-3 h-56">
+                                    <div className="dashboard card grow flex flex-col gap-y-3 h-56 w-full lg:max-w-sm">
                                         {currentPredictions.map(ds => (
                                             <CurrentPredictions key={ds.id} station={data} ds={ds} />
                                         ))}
                                     </div>
                                 )}
                             </div>
-                            <div className="dashboard card flex flex-col h-72 max-w-5xl">
+                            <div className="dashboard card flex flex-col h-72 2xl:max-w-4xl 3xl:max-w-5xl">
                                 {tideCharts.map(ds => (
                                     <TideChart key={ds.id} station={data} ds={ds} />
                                 ))}
@@ -90,7 +90,7 @@ function Dashboard() {
                         )}
                         {!loading && !error && dataSources.length === 0 && <p>No data found.</p>}
                     </div>
-                    <div className="flex flex-row gap-x-4 w-full">
+                    <div className="flex flex-row gap-x-4 w-full flex-wrap">
                         {weatherObservations.map(ds => (
                             <CurrentWeather key={ds.id} ds={ds} />
                         ))}

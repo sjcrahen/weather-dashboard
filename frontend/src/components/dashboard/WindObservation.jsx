@@ -12,7 +12,7 @@ const WindObservation = React.memo(function WindObservation({ ds }) {
                 <div className="dashboard card p-sm flex flex-row justify-between">
                     <div className="flex flex-row items-center">
                         <BsWind className="text-xl mr-2" />
-                        <h3 className="text-md">
+                        <h3 className="text-md overflow-hidden whitespace-nowrap max-w-12 min-[540px]:max-w-96">
                             {sourceIdentifier} - {name}
                         </h3>
                     </div>
