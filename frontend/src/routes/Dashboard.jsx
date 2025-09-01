@@ -21,6 +21,11 @@ function Dashboard() {
 
     useEffect(() => {
         doFetch(`http://localhost:8080/api/dashboard/${slug}`);
+        const interval = setInterval(() => {
+            doFetch(`http://localhost:8080/api/dashboard/${slug}`);
+        }, 180000);
+
+        return () => clearInterval(interval);
     }, [slug, doFetch]);
 
     useEffect(() => {
