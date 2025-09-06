@@ -19,7 +19,7 @@ const CurrentPredictions = React.memo(function CurrentPredictions({ station, ds 
                 block: "center",
             });
         }
-    }, []);
+    }, [lastBeforeNow]);
 
     const renderedCurrentPredictions = predictions?.map((p, idx) => {
         if (idx < 12) {
