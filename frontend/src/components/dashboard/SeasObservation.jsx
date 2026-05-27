@@ -17,7 +17,7 @@ const SeasObservation = React.memo(function SeasObservation({ ds }) {
                             {sourceIdentifier} - {name}
                         </h3>
                     </div>
-                    {expired && <div className="flex flex-row items-center text-xl">No recent observations</div>}
+                    {expired && <div className="flex flex-row items-center text-lg text-red-700">No recent observations</div>}
                     {!expired && dateTimeString != null && waveHeight != null && (
                         <div className="flex flex-row gap-x-5 items-center">
                             <div className="flex flex-row gap-x-3 items-baseline text-xl font-medium">
